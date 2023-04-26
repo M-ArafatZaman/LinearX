@@ -1,10 +1,20 @@
 import React from 'react';
 
 const Footer: React.FC = () => {
+    const date = new Date();
 
     return (
-        <footer className="bg-blue-200 text-white p-4">
-            <h3 className="text-xl font-bold">Footer</h3>
+        <footer className="p-8 bg-slate-900 text-white">
+            <div className="container mx-auto text-center">
+                <p>
+                    <h4 className="font-bold">Mohammad Arafat Zaman</h4>
+                    &copy;
+                    <span className="ml-1">
+                        {date.getFullYear().toString()}
+                    </span>
+                </p>
+                    
+            </div>
         </footer>
     )
 };
