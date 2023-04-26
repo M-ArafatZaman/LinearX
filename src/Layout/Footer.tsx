@@ -6,13 +6,13 @@ const Footer: React.FC = () => {
     return (
         <footer className="p-8 bg-slate-900 text-white">
             <div className="container mx-auto text-center">
-                <p>
+                <div>
                     <h4 className="font-bold">Mohammad Arafat Zaman</h4>
                     &copy;
                     <span className="ml-1">
                         {date.getFullYear().toString()}
                     </span>
-                </p>
+                </div>
                     
             </div>
         </footer>
