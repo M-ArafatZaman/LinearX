@@ -1,27 +1,28 @@
 import React, {useState} from 'react';
 import Plot from 'react-plotly.js';
+import useDimensions from './useDimensions';
 
 const App: React.FC = () => {
 
-    const [height, setHeight] = useState<number>( Math.min( window.innerHeight - 40, 600 ) );
-    const [width, setWidth] = useState<number>( Math.min( window.innerWidth - 20, 900 ) );
+    const [width, height] = useDimensions();
 
     return (
         <div className='container mx-auto'>
 
-            <div className="flex w-full justify-center pt-3">
+            <div className="flex w-full justify-center pt-5">
                 <Plot
                     data={[
                         {
                             x: [1,2,3],
                             y: [3,5,2],
-                            type: "bar"
+                            z: [1,2,3],
+                            type: "mesh3d"
                         }
                     ]}
                     layout={{
                         width: width,
                         height: height,
-                        title: "Plot"
+                        title: "Vectors Visualized"
                     }}
                 />
             </div>
