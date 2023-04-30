@@ -13,18 +13,34 @@ const App: React.FC = () => {
                 <Plot
                     data={[
                         {
-                            x: [1,2,3],
-                            y: [3,5,2],
-                            z: [1,2,3],
-                            type: "mesh3d"
+                            x: [0,1],
+                            y: [0,3],
+                            z: [0,1],
+                            type: "scatter3d"
                         }
                     ]}
                     layout={{
                         width: width,
                         height: height,
-                        title: "Vectors Visualized"
+                        title: "Vectors Visualized",
                     }}
                 />
+            </div>
+
+            <hr/>
+            <div className="p-2">
+                <div className="w-full sm:flex block">
+                    <div>
+                        <div className="uppercase cursor-pointer font-bold rounded-md shadow-lg px-5 py-2 bg-blue-400 text-white transition-all hover:bg-slate-500 hover:shadow-2xl active:bg-slate-400 mb-2">Add Vector</div>
+                        
+                        <div className="uppercase cursor-pointer font-bold rounded-md shadow-lg px-5 py-2 bg-blue-400 text-white transition-all hover:bg-slate-500 hover:shadow-2xl active:bg-slate-400">Add Plane</div>
+                    </div>
+
+                    <div className="flex-1 sm:ml-5">
+                        Test
+                    </div>
+                </div>
+
             </div>
         </div>
     )

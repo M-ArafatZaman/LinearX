@@ -13,7 +13,6 @@ const Header: React.FC = () => {
                 HeaderBackdropRef.current !== null &&
                 typeof HeaderBackdropRef.current !== "undefined") {
                 HeaderBackdropRef.current.style.height = `${HeaderRef.current.getBoundingClientRect().height}px`;
-                console.log(HeaderRef.current.getBoundingClientRect())
             };
         };
 
