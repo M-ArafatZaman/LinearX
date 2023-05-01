@@ -23,19 +23,27 @@ const App: React.FC = () => {
     })
     const [data, setData] = useState<DataType[]>([
         {
-            x: [-1,1,1,-1],
-            y: [1,-1,1,-1],
-            z: [0,0,0,0],
+            x: [0],
+            y: [0],
+            z: [0],
             type: "scatter3d",
             line: {
                 color: "#4c4c4c"
-            },
-            color: "red"
+            }
         }
     ]);
 
     const AddVector = () => {
         // Add a vector to the data => scatter3d
+        setData((prevData) => [...prevData, {
+            x: [0,1],
+            y: [0,1],
+            z: [0,1],
+            type: "scatter3d",
+            line: {
+                color: "#4985D7"
+            }
+        }])
     }
 
     const AddPlane = () => {
@@ -60,7 +68,7 @@ const App: React.FC = () => {
             <div className="p-2">
                 <div className="w-full sm:flex block">
                     <div>
-                        <div className="uppercase cursor-pointer font-bold rounded-md shadow-lg px-5 py-2 bg-blue-400 text-white transition-all hover:bg-blue-500 hover:shadow-2xl active:bg-blue-200 mb-2">Add Vector</div>
+                        <div className="uppercase cursor-pointer font-bold rounded-md shadow-lg px-5 py-2 bg-blue-400 text-white transition-all hover:bg-blue-500 hover:shadow-2xl active:bg-blue-200 mb-2" onClick={AddVector}>Add Vector</div>
                         
                         <div className="uppercase cursor-pointer font-bold rounded-md shadow-lg px-5 py-2 bg-blue-400 text-white transition-all hover:bg-blue-500 hover:shadow-2xl active:bg-blue-200">Add Plane</div>
                     </div>
