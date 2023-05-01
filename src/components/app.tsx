@@ -1,7 +1,14 @@
 import React, {useState} from 'react';
 import Plot from 'react-plotly.js';
-import {Data} from 'plotly.js';
+import {Data, Color} from 'plotly.js';
 import useDimensions from './useDimensions';
+
+// Added type definition for the Mesh3DColor type
+interface Mesh3DColor {
+    color: Color;
+}
+
+type DataType = Data & Partial<Mesh3DColor>;
 
 const App: React.FC = () => {
 
@@ -14,15 +21,16 @@ const App: React.FC = () => {
         min: -1,
         max: 1
     })
-    const [data, setData] = useState<Data[]>([
+    const [data, setData] = useState<DataType[]>([
         {
-            x: [0,0],
-            y: [0,0],
-            z: [0,0],
+            x: [-1,1,1,-1],
+            y: [1,-1,1,-1],
+            z: [0,0,0,0],
             type: "scatter3d",
             line: {
                 color: "#4c4c4c"
-            }
+            },
+            color: "red"
         }
     ]);
 
