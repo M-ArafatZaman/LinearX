@@ -1,28 +1,29 @@
 import React, {useState} from 'react';
 import Plot from 'react-plotly.js';
+import {Data} from 'plotly.js';
 import useDimensions from './useDimensions';
 
 const App: React.FC = () => {
 
     const [width, height] = useDimensions();
-    const [data, setData] = useState([]);
+    const [data, setData] = useState<Data[]>([
+        {
+            x: [0,0],
+            y: [0,0],
+            z: [0,0],
+            type: "scatter3d",
+            line: {
+                color: "#4c4c4c"
+            }
+        }
+    ]);
 
     return (
         <div className='container mx-auto'>
 
             <div className="flex w-full justify-center pt-5">
                 <Plot
-                    data={[
-                        {
-                            x: [0,1],
-                            y: [0,3],
-                            z: [0,1],
-                            type: "scatter3d",
-                            line: {
-                                color: "#ff0000"
-                            }
-                        }
-                    ]}
+                    data={data}
                     layout={{
                         width: width,
                         height: height,
@@ -41,7 +42,7 @@ const App: React.FC = () => {
                     </div>
 
                     <div className="flex-1 sm:ml-5 px-3">
-                        <div className="w-full text-center p-5 italic border-dashed border-2"><p>Add a plane or a vector</p></div>
+                        <div className="w-full text-center p-5 italic border-dashed border-2 bg-gray-50"><p>Add a plane or a vector</p></div>
                         
                         <div className="border-l-8 border-solid border-yellow-500"></div>
                     </div>
