@@ -1,14 +1,23 @@
 import React, {useState} from 'react';
 import Plot from 'react-plotly.js';
-import {Data, Color} from 'plotly.js';
+import {PlotData, ScatterLine} from 'plotly.js';
 import useDimensions from './useDimensions';
+import Vector from './Vector';
 
 // Added type definition for the Mesh3DColor type
 interface Mesh3DColor {
-    color: Color;
+    color: string;
 }
 
-type DataType = Data & Partial<Mesh3DColor>;
+interface ScatterLineColor extends ScatterLine {
+    color: string;
+}
+
+interface PlotDataColor extends PlotData {
+    line: Partial<ScatterLineColor>;
+}
+
+type DataType = Partial<PlotDataColor> & Partial<Mesh3DColor>;
 
 const App: React.FC = () => {
 
@@ -78,14 +87,22 @@ const App: React.FC = () => {
                         {
                             data.length > 1 ? 
 
-                            <p>LOL</p>
+                            data.map((d, i) => {
+                                if (i === 0 ) return <></>;
+                                return <Vector 
+                                    id={i} 
+                                    color={d.line?.color}
+                                    x={d.x}
+                                    y={d.y}
+                                    z={d.z}
+                                />
+                            })
 
                             :
                             
                             <div className="w-full text-center p-5 italic border-dashed border-2 bg-gray-50"><p>Add a plane or a vector</p></div>
                         }
                         
-                        <div className="border-l-8 border-solid border-yellow-500"></div>
                     </div>
                 </div>
 
