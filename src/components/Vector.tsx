@@ -11,7 +11,7 @@ interface VectorProps {
 };
 
 const Vector: React.FC<VectorProps> = (props: VectorProps) => {
-    const {color, x, y, z} = props;
+    const {color, x, y, z, id} = props;
     const [_x, setX] = useState<number>(0);
     const [_y, setY] = useState<number>(0);
     const [_z, setZ] = useState<number>(0);
@@ -39,9 +39,13 @@ const Vector: React.FC<VectorProps> = (props: VectorProps) => {
             </div>
 
             <div className="flex flex-row">
-                <div style={{height: 50, width: 10, backgroundColor: color}}></div>
+                <div className="self-stretch" style={{width: 10, backgroundColor: color}}></div>
 
-                <div className="py-2 px-4 border-l-2 border-r-2 border-gray-500 ml-4 flex flex-col">
+                <div className="px-5 flex justify-center align-middle flex-col">
+                    <p className="italic relative">V<small className="absolute" style={{top: 10}}>{id}</small></p>
+                </div>
+
+                <div className="py-2 px-4 border-l-2 border-r-2 border-gray-500 flex flex-col">
                     <div>{_x}</div>
                     <div>{_y}</div>
                     <div>{_z}</div>
