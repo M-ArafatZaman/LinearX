@@ -90,6 +90,7 @@ const App: React.FC = () => {
                             data.map((d, i) => {
                                 if (i === 0 ) return <></>;
                                 return <Vector 
+                                    key={i}
                                     id={i} 
                                     color={d.line?.color}
                                     x={d.x}
