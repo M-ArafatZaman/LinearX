@@ -5,9 +5,9 @@ import { Color, Datum, TypedArray } from 'plotly.js';
 interface VectorProps {
     id: number;
     color: string | undefined;
-    x: Datum[] | Datum[][] | TypedArray | undefined;
-    y: Datum[] | Datum[][] | TypedArray | undefined;
-    z: Datum[] | Datum[][] | Datum[][][] | TypedArray | undefined;
+    x: number[] | undefined;
+    y: number[] | undefined;
+    z: number[] | undefined;
 };
 
 const Vector: React.FC<VectorProps> = (props: VectorProps) => {
@@ -20,29 +20,17 @@ const Vector: React.FC<VectorProps> = (props: VectorProps) => {
     // Convert x, y, z to some numbers
     useEffect(() => {
         if (typeof x !== "undefined") {
-            if (typeof x[1] === "string") {
-                setX( parseInt( x[1] ) );
-            } else if (typeof x[1] === "number") {
-                setX( x[1] );
-            }
+            setX( x[1] );
         };
 
         if (typeof y !== "undefined") {
-            if (typeof y[1] === "string") {
-                setY( parseInt( y[1] ) );
-            } else if (typeof y[1] === "number") {
-                setY( y[1] );
-            }
+            setY( y[1] );
         };
 
         if (typeof z !== "undefined") {
-            if (typeof z[1] === "string") {
-                setZ( parseInt( z[1] ) );
-            } else if (typeof z[1] === "number") {
-                setZ( z[1] );
-            }
+            setZ( z[1] );
         };
-    }, [])
+    }, []);
 
     return (
         <div className="relative w-full p-2">

@@ -13,11 +13,14 @@ interface ScatterLineColor extends ScatterLine {
     color: string;
 }
 
-interface PlotDataColor extends PlotData {
+interface PlotDataExtended extends PlotData {
     line: Partial<ScatterLineColor>;
+    x: number[];
+    y: number[];
+    z: number[];
 }
 
-type DataType = Partial<PlotDataColor> & Partial<Mesh3DColor>;
+type DataType = Partial<PlotDataExtended> & Partial<Mesh3DColor>;
 
 const App: React.FC = () => {
 
