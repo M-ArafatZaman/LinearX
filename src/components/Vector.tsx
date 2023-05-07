@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { SketchPicker } from 'react-color';
+import { SwatchesPicker } from 'react-color';
 
 interface VectorProps {
     id: number;
@@ -10,14 +10,19 @@ interface VectorProps {
 };
 
 const Vector: React.FC<VectorProps> = (props: VectorProps) => {
-    const {color, x, y, z, id} = props;
+    const {x, y, z, id, color="#fff"} = props;
     const [x0, setX0] = useState<number>(0);
     const [x1, setX1] = useState<number>(0);
     const [y0, setY0] = useState<number>(0);
     const [y1, setY1] = useState<number>(0);
     const [z0, setZ0] = useState<number>(0);
     const [z1, setZ1] = useState<number>(0);
+    const [_color, setColor] = useState<string>(color);
 
+    // Change color
+    const changeColor = (val: string) => {
+        setColor(val);
+    }
 
     // Convert x, y, z to some numbers
     useEffect(() => {
@@ -38,18 +43,19 @@ const Vector: React.FC<VectorProps> = (props: VectorProps) => {
     }, []);
 
     return (
-        <div className="relative w-full p-2">
-            <div className="absolute hidden hover:inline-block">
-                <SketchPicker color={color} />
-            </div>
+        <div className="relative w-full rounded-md shadow-lg hover:bg-gray-200">
 
             <div className="flex flex-row">
-                <div className="self-stretch" style={{width: 10, backgroundColor: color}}></div>
+                <div className="self-stretch rounded-l-md relative group" style={{width: 10, backgroundColor: _color}}>
+                    <div className="absolute invisible group-hover:visible" style={{zIndex: 1}}>
+                        <SwatchesPicker color={_color} onChangeComplete={(e) => { changeColor(e.hex) }} />
+                    </div>
+                </div>
 
                 {/* V label */}
                 <div className="px-5 flex justify-center align-middle flex-col">
                     <p className="relative">
-                        <span className="italic">
+                        <span className="italic" style={{zIndex: -5}}>
                             V<small className="absolute" style={{top: 10}}>{id}</small>
                         </span>
                         <span className="ml-5">=</span>
@@ -58,7 +64,7 @@ const Vector: React.FC<VectorProps> = (props: VectorProps) => {
 
                 {/* O - A */}
                 {/* Point O */}
-                <div className="py-2 px-4 border-l-2 border-r-2 border-gray-500 flex flex-col">
+                <div className="py-2 px-4 border-l-2 border-r-2 border-gray-500 flex flex-col my-3">
                     <div>{x1}</div>
                     <div>{y1}</div>
                     <div>{z1}</div>
@@ -69,7 +75,7 @@ const Vector: React.FC<VectorProps> = (props: VectorProps) => {
                 </div>
 
                 {/* Point A */}
-                <div className="py-2 px-4 border-l-2 border-r-2 border-gray-500 flex flex-col">
+                <div className="py-2 px-4 border-l-2 border-r-2 border-gray-500 flex flex-col my-3">
                     <div>{x0}</div>
                     <div>{y0}</div>
                     <div>{z0}</div>
@@ -80,7 +86,7 @@ const Vector: React.FC<VectorProps> = (props: VectorProps) => {
                 </div>
 
                 {/* Resultant vector */}
-                <div className="py-2 px-4 border-l-2 border-r-2 border-gray-500 flex flex-col">
+                <div className="py-2 px-4 border-l-2 border-r-2 border-gray-500 flex flex-col my-3">
                     <div>{x1-x0}</div>
                     <div>{y1-y0}</div>
                     <div>{z1-z0}</div>
