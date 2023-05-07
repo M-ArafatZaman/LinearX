@@ -43,7 +43,7 @@ const Vector: React.FC<VectorProps> = (props: VectorProps) => {
     }, []);
 
     return (
-        <div className="relative w-full rounded-md shadow-lg hover:bg-gray-200">
+        <div className="relative w-full rounded-md shadow-lg">
 
             <div className="flex flex-row">
                 <div className="self-stretch rounded-l-md relative group" style={{width: 10, backgroundColor: _color}}>
@@ -65,9 +65,27 @@ const Vector: React.FC<VectorProps> = (props: VectorProps) => {
                 {/* O - A */}
                 {/* Point O */}
                 <div className="py-2 px-4 border-l-2 border-r-2 border-gray-500 flex flex-col my-3">
-                    <div>{x1}</div>
-                    <div>{y1}</div>
-                    <div>{z1}</div>
+                    <input 
+                        type="number"
+                        value={x1}
+                        onChange={(e) => { setX1(parseInt(e.target.value)) }}
+                        className="rounded border p-1 my-1"
+                        style={{width: 50}}
+                    />
+                    <input 
+                        type="number"
+                        value={y1}
+                        onChange={(e) => { setY1(parseInt(e.target.value)) }}
+                        className="rounded border p-1 my-1"
+                        style={{width: 50}}
+                    />
+                    <input 
+                        type="number"
+                        value={z1}
+                        onChange={(e) => { setZ1(parseInt(e.target.value)) }}
+                        className="rounded border p-1 my-1"
+                        style={{width: 50}}
+                    />
                 </div>
 
                 <div className="px-5 flex justify-center align-middle flex-col">
@@ -76,9 +94,27 @@ const Vector: React.FC<VectorProps> = (props: VectorProps) => {
 
                 {/* Point A */}
                 <div className="py-2 px-4 border-l-2 border-r-2 border-gray-500 flex flex-col my-3">
-                    <div>{x0}</div>
-                    <div>{y0}</div>
-                    <div>{z0}</div>
+                    <input 
+                        type="number"
+                        value={x0}
+                        onChange={(e) => { setX0(parseInt(e.target.value)) }}
+                        className="rounded border p-1 my-1"
+                        style={{width: 50}}
+                    />
+                    <input 
+                        type="number"
+                        value={y0}
+                        onChange={(e) => { setY0(parseInt(e.target.value)) }}
+                        className="rounded border p-1 my-1"
+                        style={{width: 50}}
+                    />
+                    <input 
+                        type="number"
+                        value={z0}
+                        onChange={(e) => { setZ0(parseInt(e.target.value)) }}
+                        className="rounded border p-1 my-1"
+                        style={{width: 50}}
+                    />
                 </div>
 
                 <div className="px-5 flex justify-center align-middle flex-col">
@@ -87,9 +123,9 @@ const Vector: React.FC<VectorProps> = (props: VectorProps) => {
 
                 {/* Resultant vector */}
                 <div className="py-2 px-4 border-l-2 border-r-2 border-gray-500 flex flex-col my-3">
-                    <div>{x1-x0}</div>
-                    <div>{y1-y0}</div>
-                    <div>{z1-z0}</div>
+                    <div className="p-1 my-1">{x1-x0}</div>
+                    <div className="p-1 my-1">{y1-y0}</div>
+                    <div className="p-1 my-1">{z1-z0}</div>
                 </div>
                 
             </div>
