@@ -1,26 +1,8 @@
 import React, {useState} from 'react';
 import Plot from 'react-plotly.js';
-import {PlotData, ScatterLine} from 'plotly.js';
 import useDimensions from './useDimensions';
 import Vector from './Vector';
-
-// Added type definition for the Mesh3DColor type
-interface Mesh3DColor {
-    color: string;
-}
-
-interface ScatterLineColor extends ScatterLine {
-    color: string;
-}
-
-interface PlotDataExtended extends PlotData {
-    line: Partial<ScatterLineColor>;
-    x: number[];
-    y: number[];
-    z: number[];
-}
-
-type DataType = Partial<PlotDataExtended> & Partial<Mesh3DColor>;
+import {DataType, AppRelayoutType} from './types';
 
 const App: React.FC = () => {
 
@@ -44,6 +26,11 @@ const App: React.FC = () => {
             }
         }
     ]);
+    const [Eye, setEye] = useState({
+        x: 1,
+        y: 1,
+        z: 1
+    });
 
     const AddVector = () => {
         // Add a vector to the data => scatter3d
@@ -78,7 +65,17 @@ const App: React.FC = () => {
                         width: width,
                         height: height,
                         title: "Vectors Visualized",
+                        scene: {
+                            camera: {
+                                eye: Eye
+                            }
+                        }
                     }}
+                    // @ts-ignore
+                    onRelayout={(e: Readonly<Partial<AppRelayoutType>>) => {
+                        setEye((prev) => ({...prev, ...e["scene.camera"]?.eye}));
+                    }}
+                    
                 />
             </div>
 
