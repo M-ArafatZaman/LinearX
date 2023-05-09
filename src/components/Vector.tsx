@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { SwatchesPicker } from 'react-color';
 import VectorBorder from './VectorBorder';
+import {DataType} from './types';
 
 interface VectorProps {
     id: number;
@@ -8,10 +9,11 @@ interface VectorProps {
     x: number[] | undefined;
     y: number[] | undefined;
     z: number[] | undefined;
+    update: (id: number, d: DataType) => void;
 };
 
 const Vector: React.FC<VectorProps> = (props: VectorProps) => {
-    const {x, y, z, id, color="#fff"} = props;
+    const {x, y, z, id, color="#fff", update} = props;
     const [x0, setX0] = useState<number>(0);
     const [x1, setX1] = useState<number>(0);
     const [y0, setY0] = useState<number>(0);
@@ -43,8 +45,21 @@ const Vector: React.FC<VectorProps> = (props: VectorProps) => {
         };
     }, []);
 
+    // Whenever the values of x changes
+    useEffect(() => {
+        // Update the data
+        update(id, {
+            x: [x0, x1],
+            y: [y0, y1],
+            z: [z0, z1],
+            line: {
+                color: _color
+            }
+        })
+    }, [x0, x1, y0, y1, z0, z1, _color]);
+
     return (
-        <div className="relative w-full rounded-md shadow-lg">
+        <div className="relative w-full rounded-md shadow-lg my-2">
 
             <div className="flex flex-row">
                 <div className="self-stretch rounded-l-md relative group" style={{width: 10, backgroundColor: _color}}>

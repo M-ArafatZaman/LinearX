@@ -45,10 +45,19 @@ const App: React.FC = () => {
         }])
     };
 
-    const UpdateVector = () => {
+    const UpdateVector = (id: number, d: Partial<DataType>) => {
         // Update a vector from the vector components
-        
-
+        const newData = data.map((e, i) => {
+            if (id === i) {
+                return {
+                    ...e,
+                    ...d
+                }
+            } else {
+                return e;
+            }
+        });
+        setData(newData);
     }
 
     const AddPlane = () => {
@@ -58,7 +67,7 @@ const App: React.FC = () => {
     return (
         <div className='container mx-auto'>
 
-            <div className="flex w-full justify-center pt-5">
+            <div className="flex w-full justify-center mt-5">
                 <Plot
                     data={data}
                     layout={{
@@ -102,6 +111,7 @@ const App: React.FC = () => {
                                     x={d.x}
                                     y={d.y}
                                     z={d.z}
+                                    update={UpdateVector}
                                 />
                             })
 
