@@ -56,6 +56,12 @@ const App: React.FC = () => {
                 color: "#4985D7"
             }
         }])
+    };
+
+    const UpdateVector = () => {
+        // Update a vector from the vector components
+        
+
     }
 
     const AddPlane = () => {

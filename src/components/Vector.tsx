@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { SwatchesPicker } from 'react-color';
+import VectorBorder from './VectorBorder';
 
 interface VectorProps {
     id: number;
@@ -64,7 +65,7 @@ const Vector: React.FC<VectorProps> = (props: VectorProps) => {
 
                 {/* O - A */}
                 {/* Point O */}
-                <div className="py-2 px-4 border-l-2 border-r-2 border-gray-500 flex flex-col my-3">
+                <VectorBorder>
                     <input 
                         type="number"
                         value={x1}
@@ -86,14 +87,14 @@ const Vector: React.FC<VectorProps> = (props: VectorProps) => {
                         className="rounded border p-1 my-1"
                         style={{width: 50}}
                     />
-                </div>
+                </VectorBorder>
 
                 <div className="px-5 flex justify-center align-middle flex-col">
                     <span>-</span>
                 </div>
 
                 {/* Point A */}
-                <div className="py-2 px-4 border-l-2 border-r-2 border-gray-500 flex flex-col my-3">
+                <VectorBorder>
                     <input 
                         type="number"
                         value={x0}
@@ -115,18 +116,18 @@ const Vector: React.FC<VectorProps> = (props: VectorProps) => {
                         className="rounded border p-1 my-1"
                         style={{width: 50}}
                     />
-                </div>
+                </VectorBorder>
 
                 <div className="px-5 flex justify-center align-middle flex-col">
                     <span>=</span>
                 </div>
 
                 {/* Resultant vector */}
-                <div className="py-2 px-4 border-l-2 border-r-2 border-gray-500 flex flex-col my-3">
+                <VectorBorder>
                     <div className="p-1 my-1">{x1-x0}</div>
                     <div className="p-1 my-1">{y1-y0}</div>
                     <div className="p-1 my-1">{z1-z0}</div>
-                </div>
+                </VectorBorder>
                 
             </div>
             
