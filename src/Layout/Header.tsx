@@ -28,7 +28,7 @@ const Header: React.FC = () => {
 
     return (
         <>
-            <header ref={HeaderRef} className="p-6 bg-slate-200 text-gray-800 shadow-xl fixed w-full">
+            <header ref={HeaderRef} className="p-6 bg-slate-200 text-gray-800 shadow-xl fixed w-full" style={{zIndex: 100}}>
                 <div className="container mx-auto">
                     <div className="flex flex-row w-full items-center relative">
                         <img src={Logo} style={{

@@ -9,7 +9,7 @@ interface LayoutProps {
 const Layout: React.FC<LayoutProps> = ({children}: LayoutProps) => {
 
     return (
-        <div className="flex flex-col h-screen">
+        <div className="flex flex-col" style={{minHeight: "100vh"}}>
             <Header/>
             <main className="flex-1 p-4">
                 {children}
