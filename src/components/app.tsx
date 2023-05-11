@@ -13,6 +13,8 @@ const App: React.FC = () => {
     const [xmin, setXMin] = useState<number>(-1);
     const [ymax, setYMax] = useState<number>(1);
     const [ymin, setYMin] = useState<number>(-1);
+    const [zmax, setZMax] = useState<number>(1);
+    const [zmin, setZMin] = useState<number>(-1);
     const [data, setData] = useState<DataType[]>([
         {
             x: [0],
@@ -56,7 +58,7 @@ const App: React.FC = () => {
     const UpdateVector = (id: number, d: DataType) => {
         // Update a vector from the vector components
         const newData = data.map((e, i) => {
-            if (id === i) {
+            if (metaData[i].id === id) {
                 return {
                     ...e,
                     ...d
@@ -71,6 +73,8 @@ const App: React.FC = () => {
         setXMin( Math.min(xmin, ...(d.x as number[])) );
         setYMax( Math.max(ymax, ...(d.y as number[])) );
         setYMin( Math.min(ymin, ...(d.y as number[])) );
+        setZMax( Math.max(zmax, ...(d.z as number[])) );
+        setZMin( Math.min(zmin, ...(d.z as number[])) );
     }
 
     const AddPlane = () => {
@@ -105,6 +109,21 @@ const App: React.FC = () => {
             c: 1,
             d: 0
         }])
+    };
+
+    const updatePlane = (id: number, d: DataType) => {
+        //
+        const newData = data.map((e, i) => {
+            if (id === i) {
+                return {
+                    ...e,
+                    ...d
+                }
+            } else {
+                return e;
+            }
+        });
+        setData(newData);
     }
 
     // Whenever the x and y ranges are updated
@@ -172,6 +191,10 @@ const App: React.FC = () => {
                                         b={metaData[i].b}
                                         c={metaData[i].c}
                                         d={metaData[i].d}
+                                        xrange={[xmin, xmax]}
+                                        yrange={[ymin, ymax]}
+                                        zrange={[zmin, zmax]}
+                                        update={updatePlane}
                                     />
                                 }
                                 return <></>
