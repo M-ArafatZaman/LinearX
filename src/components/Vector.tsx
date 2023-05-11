@@ -10,6 +10,7 @@ interface VectorProps {
     y: number[] | undefined;
     z: number[] | undefined;
     update: (id: number, d: DataType) => void;
+    info: string;
 };
 
 const Vector: React.FC<VectorProps> = (props: VectorProps) => {

@@ -99,6 +99,7 @@ const App: React.FC = () => {
             y: y,
             z: z,
             type: "mesh3d",
+            opacity: 0.7,
             color: getRandomColor()
         }]);
         setMetaData((prev) => [...prev, {
@@ -181,6 +182,7 @@ const App: React.FC = () => {
                                         y={d.y}
                                         z={d.z}
                                         update={UpdateVector}
+                                        info={metaData[i].info}
                                     />
                                 } else if (d.type === "mesh3d") {
                                     return <Plane
