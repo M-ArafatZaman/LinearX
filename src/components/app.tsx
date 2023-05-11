@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Plot from 'react-plotly.js';
 import useDimensions from './useDimensions';
 import Vector from './Vector';
@@ -7,14 +7,10 @@ import {DataType, AppRelayoutType} from './types';
 const App: React.FC = () => {
 
     const [width, height] = useDimensions();
-    const [xrange, setRangeX] = useState({
-        min: -1,
-        max: 1
-    });
-    const [yrange, setRangeY] = useState({
-        min: -1,
-        max: 1
-    })
+    const [xmax, setXMax] = useState<number>(1);
+    const [xmin, setXMin] = useState<number>(-1);
+    const [ymax, setYMax] = useState<number>(1);
+    const [ymin, setYMin] = useState<number>(-1);
     const [data, setData] = useState<DataType[]>([
         {
             x: [0],
@@ -45,7 +41,7 @@ const App: React.FC = () => {
         }])
     };
 
-    const UpdateVector = (id: number, d: Partial<DataType>) => {
+    const UpdateVector = (id: number, d: DataType) => {
         // Update a vector from the vector components
         const newData = data.map((e, i) => {
             if (id === i) {
@@ -58,11 +54,23 @@ const App: React.FC = () => {
             }
         });
         setData(newData);
+        // Update the ranges just in case
+        setXMax( Math.max(xmax, ...(d.x as number[])) );
+        setXMin( Math.min(xmin, ...(d.x as number[])) );
+        setYMax( Math.max(ymax, ...(d.y as number[])) );
+        setYMin( Math.min(ymin, ...(d.y as number[])) );
     }
 
     const AddPlane = () => {
         // Add a plane to the data => mesh3d
     }
+
+    // Whenever the x and y ranges are updated
+    useEffect(() => {
+        console.log(xmax, "is updated");
+
+
+    }, [xmax, xmin, ymax, ymin]);
 
     return (
         <div className='container mx-auto'>
