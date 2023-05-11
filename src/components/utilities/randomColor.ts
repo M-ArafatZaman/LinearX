@@ -5,7 +5,7 @@ const getRandomInt = (min: number, max: number) => parseInt( ((Math.random() * m
 
 // Get random color
 const randomHex = () => {
-    let hex: string = "";
+    let hex: string = "#";
 
     for (let _ = 0; _ < 6; _++) {
         hex += HEX[ getRandomInt(0, HEX.length) ];

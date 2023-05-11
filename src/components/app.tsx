@@ -1,7 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import Plot from 'react-plotly.js';
 import useDimensions from './utilities/useDimensions';
+import getRandomColor from './utilities/randomColor';
 import Vector from './Vector';
+import Plane from './Plane';
 import {DataType, AppRelayoutType, MetaData} from './types';
 
 const App: React.FC = () => {
@@ -42,12 +44,12 @@ const App: React.FC = () => {
             z: [0,1],
             type: "scatter3d",
             line: {
-                color: "#4985D7"
+                color: getRandomColor()
             }
         }]);
         setMetaData((prev) => [...prev, {
             id: prev[prev.length-1].id + 1,
-            info: `Vector ${data.length} created by the user.`
+            info: `Vector ${prev[prev.length-1].id + 1} created by the user.`
         }]);
     };
 
@@ -93,7 +95,11 @@ const App: React.FC = () => {
             y: y,
             z: z,
             type: "mesh3d",
-            color: "#fff"
+            color: getRandomColor()
+        }]);
+        setMetaData((prev) => [...prev, {
+            id: prev[prev.length-1].id + 1,
+            info: `Plane ${prev[prev.length-1].id + 1} created by the user`
         }])
     }
 
@@ -133,7 +139,7 @@ const App: React.FC = () => {
                     <div>
                         <div className="uppercase cursor-pointer font-bold rounded-md shadow-lg px-5 py-2 bg-blue-400 text-white transition-all hover:bg-blue-500 hover:shadow-2xl active:bg-blue-200 mb-2" onClick={AddVector}>Add Vector</div>
                         
-                        <div className="uppercase cursor-pointer font-bold rounded-md shadow-lg px-5 py-2 bg-blue-400 text-white transition-all hover:bg-blue-500 hover:shadow-2xl active:bg-blue-200">Add Plane</div>
+                        <div className="uppercase cursor-pointer font-bold rounded-md shadow-lg px-5 py-2 bg-blue-400 text-white transition-all hover:bg-blue-500 hover:shadow-2xl active:bg-blue-200" onClick={AddPlane}>Add Plane</div>
                     </div>
 
                     <div className="flex-1 sm:ml-5 px-3">
@@ -143,15 +149,20 @@ const App: React.FC = () => {
 
                             data.map((d, i) => {
                                 if (i === 0 ) return <></>;
-                                return <Vector 
-                                    key={i}
-                                    id={metaData[i].id} 
-                                    color={d.line?.color}
-                                    x={d.x}
-                                    y={d.y}
-                                    z={d.z}
-                                    update={UpdateVector}
-                                />
+                                if (d.type === "scatter3d") {
+                                    return <Vector 
+                                        key={i}
+                                        id={metaData[i].id} 
+                                        color={d.line?.color}
+                                        x={d.x}
+                                        y={d.y}
+                                        z={d.z}
+                                        update={UpdateVector}
+                                    />
+                                } else if (d.type === "mesh3d") {
+                                    return <Plane/>
+                                }
+                                return <></>
                             })
 
                             :

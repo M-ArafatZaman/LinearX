@@ -8,7 +8,7 @@ const Plane: React.FC<PlaneProps> = () => {
 
     return (
         <div>
-            
+            LOL
         </div>
     )
 };
