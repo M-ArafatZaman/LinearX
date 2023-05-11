@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import Plot from 'react-plotly.js';
 import useDimensions from './useDimensions';
 import Vector from './Vector';
-import {DataType, AppRelayoutType} from './types';
+import {DataType, AppRelayoutType, MetaData} from './types';
 
 const App: React.FC = () => {
 
@@ -22,6 +22,12 @@ const App: React.FC = () => {
             }
         }
     ]);
+    const [metaData, setMetaData] = useState<MetaData[]>([
+        {
+            id: 0,
+            info: "The origin point"
+        }
+    ]);
     const [Eye, setEye] = useState({
         x: 1,
         y: 1,
@@ -38,7 +44,11 @@ const App: React.FC = () => {
             line: {
                 color: "#4985D7"
             }
-        }])
+        }]);
+        setMetaData((prev) => [...prev, {
+            id: prev[prev.length].id + 1,
+            info: `Vector ${data.length} created by the user.`
+        }]);
     };
 
     const UpdateVector = (id: number, d: DataType) => {
@@ -114,7 +124,7 @@ const App: React.FC = () => {
                                 if (i === 0 ) return <></>;
                                 return <Vector 
                                     key={i}
-                                    id={i} 
+                                    id={metaData[i].id} 
                                     color={d.line?.color}
                                     x={d.x}
                                     y={d.y}

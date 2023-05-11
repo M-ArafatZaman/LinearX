@@ -40,4 +40,9 @@ interface SceneCamera {
 
 export interface AppRelayoutType {
     "scene.camera": SceneCamera;
+};
+
+export interface MetaData {
+    id: number;
+    info: string;
 }
