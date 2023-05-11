@@ -99,7 +99,11 @@ const App: React.FC = () => {
         }]);
         setMetaData((prev) => [...prev, {
             id: prev[prev.length-1].id + 1,
-            info: `Plane ${prev[prev.length-1].id + 1} created by the user`
+            info: `Plane ${prev[prev.length-1].id + 1} created by the user`,
+            a: 0,
+            b: 0,
+            c: 1,
+            d: 0
         }])
     }
 
@@ -160,7 +164,15 @@ const App: React.FC = () => {
                                         update={UpdateVector}
                                     />
                                 } else if (d.type === "mesh3d") {
-                                    return <Plane/>
+                                    return <Plane
+                                        key={i}
+                                        id={metaData[i].id}
+                                        color={d.color}
+                                        a={metaData[i].a}
+                                        b={metaData[i].b}
+                                        c={metaData[i].c}
+                                        d={metaData[i].d}
+                                    />
                                 }
                                 return <></>
                             })

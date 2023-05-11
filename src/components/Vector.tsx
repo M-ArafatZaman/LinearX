@@ -69,7 +69,7 @@ const Vector: React.FC<VectorProps> = (props: VectorProps) => {
                 </div>
 
                 {/* V label */}
-                <div className="px-5 flex justify-center align-middle flex-col">
+                <div className="p-5 flex justify-center align-middle flex-col">
                     <p className="relative">
                         <span className="italic" style={{zIndex: -5}}>
                             V<small className="absolute" style={{top: 10}}>{id}</small>
@@ -104,7 +104,7 @@ const Vector: React.FC<VectorProps> = (props: VectorProps) => {
                     />
                 </VectorBorder>
 
-                <div className="px-5 flex justify-center align-middle flex-col">
+                <div className="p-5 flex justify-center align-middle flex-col">
                     <span>-</span>
                 </div>
 
@@ -133,7 +133,7 @@ const Vector: React.FC<VectorProps> = (props: VectorProps) => {
                     />
                 </VectorBorder>
 
-                <div className="px-5 flex justify-center align-middle flex-col">
+                <div className="p-5 flex justify-center align-middle flex-col">
                     <span>=</span>
                 </div>
 
