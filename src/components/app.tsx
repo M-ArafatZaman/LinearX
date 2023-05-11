@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import Plot from 'react-plotly.js';
-import useDimensions from './useDimensions';
+import useDimensions from './utilities/useDimensions';
 import Vector from './Vector';
 import {DataType, AppRelayoutType, MetaData} from './types';
 
@@ -46,7 +46,7 @@ const App: React.FC = () => {
             }
         }]);
         setMetaData((prev) => [...prev, {
-            id: prev[prev.length].id + 1,
+            id: prev[prev.length-1].id + 1,
             info: `Vector ${data.length} created by the user.`
         }]);
     };
@@ -73,11 +73,32 @@ const App: React.FC = () => {
 
     const AddPlane = () => {
         // Add a plane to the data => mesh3d
+        let x: number[] = [];
+        let y: number[] = [];
+        let z: number[] = [];
+
+        // If the formula is ax + by + cz = d
+        // We get z by => (d-ax-by)/c
+        // The initial formula is z = 0 
+        let tmp = [[xmax, ymax], [xmax, ymin], [xmin, ymax], [xmin, ymin]]; 
+        
+        for (let i = 0; i < tmp.length; i++) {
+            x[x.length] = tmp[i][0];
+            y[y.length] = tmp[i][1];
+            z[z.length] = 0;
+        }
+
+        setData((prev) => [...prev, {
+            x: x,
+            y: y,
+            z: z,
+            type: "mesh3d",
+            color: "#fff"
+        }])
     }
 
     // Whenever the x and y ranges are updated
     useEffect(() => {
-        console.log(xmax, "is updated");
 
 
     }, [xmax, xmin, ymax, ymin]);
