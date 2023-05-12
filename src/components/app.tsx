@@ -3,7 +3,7 @@ import Plot from 'react-plotly.js';
 import useDimensions from './utilities/useDimensions';
 import getRandomColor from './utilities/randomColor';
 import Vector from './Vector';
-import Plane from './Plane';
+import Plane, {updateVertices} from './Plane';
 import {DataType, AppRelayoutType, MetaData} from './types';
 
 const App: React.FC = () => {
@@ -113,7 +113,7 @@ const App: React.FC = () => {
     };
 
     const updatePlane = (id: number, d: DataType) => {
-        //
+        // Updates the plane
         const newData = data.map((e, i) => {
             if (id === i) {
                 return {
@@ -127,9 +127,51 @@ const App: React.FC = () => {
         setData(newData);
     }
 
+    const updateMetaData = (id: number, a: number, b: number, c: number, d: number) => {
+        // Updates the meta data
+        const newData = metaData.map((elem) => {
+            if (elem.id === id) {
+                return {
+                    ...elem,
+                    a: a,
+                    b: b,
+                    c: c,
+                    d: d
+                }
+            } else {
+                return elem;
+            }
+        })
+    }
+
     // Whenever the x and y ranges are updated
     useEffect(() => {
+        const newData = data.map((e, i) => {
+            if (e.type === "mesh3d") {
+                const a = metaData[i].a as number;
+                const b = metaData[i].b as number;
+                const c = metaData[i].c as number;
+                const d = metaData[i].d as number;
 
+                const newVertices = updateVertices(
+                    [xmin, xmax],
+                    [ymin, ymax],
+                    [zmin, zmax],
+                    a, b, c, d
+                );
+                return {
+                    ...e,
+                    x: newVertices[0],
+                    y: newVertices[1],
+                    z: newVertices[2]
+                }
+
+            } else {
+                return e;
+            }
+        });
+
+        setData(newData);
 
     }, [xmax, xmin, ymax, ymin]);
 
@@ -197,6 +239,7 @@ const App: React.FC = () => {
                                         yrange={[ymin, ymax]}
                                         zrange={[zmin, zmax]}
                                         update={updatePlane}
+                                        updateMeta={updateMetaData}
                                     />
                                 }
                                 return <></>

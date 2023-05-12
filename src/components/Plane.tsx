@@ -13,10 +13,11 @@ interface PlaneProps {
     yrange: number[];
     zrange: number[];
     update: (id: number, d: DataType) => void;
+    updateMeta: (id: number, a: number, b: number, c: number, d: number) => void;
 };
 
 // A function to update the vertices of the plane
-function updateVertices(xrange: number[], yrange: number[], zrange: number[], a: number, b: number, c: number, d: number) {
+export function updateVertices(xrange: number[], yrange: number[], zrange: number[], a: number, b: number, c: number, d: number) {
     let xmin = xrange[0]; 
     let xmax = xrange[1];
     let ymin = yrange[0]; 
@@ -89,7 +90,11 @@ const Plane: React.FC<PlaneProps> = (props: PlaneProps) => {
             color: _color,
         })
 
-    }, [_color, _a, _b, _c, _d]);
+    }, [_color]);
+
+    useEffect(() => {
+        
+    }, [_a, _b, _c, _d])
 
     return (
         <div className="relative w-full rounded-md shadow-lg my-2">
