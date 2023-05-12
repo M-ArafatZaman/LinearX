@@ -93,7 +93,15 @@ const Plane: React.FC<PlaneProps> = (props: PlaneProps) => {
     }, [_color]);
 
     useEffect(() => {
-        
+        // When any of the coefficients change, update the vertices
+        const Vertices = updateVertices(xrange, yrange, zrange, _a, _b, _c, _d);
+        update(id, {
+            x: Vertices[0],
+            y: Vertices[1],
+            z: Vertices[2],
+            type: "mesh3d",
+            color: _color
+        })
     }, [_a, _b, _c, _d])
 
     return (
