@@ -23,27 +23,13 @@ export function updateVertices(xrange: number[], yrange: number[], zrange: numbe
     let ymin = yrange[0]; 
     let ymax = yrange[1];
     let zmin = zrange[0]; 
-    let zmax = zrange[1]; 
-    // Calculate the virtual origin, essentially it is the center of the x y box
-    let vorigin: number[] = [ (xmax-xmin)/2, (ymax-ymin)/2 ]; // [x, y]
+    let zmax = zrange[1];
     let x: number[] = [];
     let y: number[] = [];
     let z: number[] = [];
-
-    vorigin[vorigin.length] = (d-(a*vorigin[0])-(b*vorigin[1]))/c;
-    // [x, z]
-    // Calculate the gradient of the base Z
-    const M_z = (zmax - vorigin[2])/(xmax - vorigin[0]);
-
-    // If the partial derivative with respect to x is greater than base z
-    if (a < M_z) {
-        
-        
-    } else {
-
-    }
     
     if (c !== 0) {
+        // [x, y]
         let tmp: number[][] = [ [xmin, ymin], [xmin, ymax], [xmax, ymin], [xmax, ymax] ];
         for (let i = 0; i < tmp.length; i++) {
             x[x.length] = tmp[i][0];
@@ -90,19 +76,10 @@ const Plane: React.FC<PlaneProps> = (props: PlaneProps) => {
             color: _color,
         })
 
-    }, [_color]);
+    }, [_color, _a, _b, _c, _d]);
 
     useEffect(() => {
-        // When any of the coefficients change, update the vertices
-        const Vertices = updateVertices(xrange, yrange, zrange, _a, _b, _c, _d);
-        update(id, {
-            x: Vertices[0],
-            y: Vertices[1],
-            z: Vertices[2],
-            type: "mesh3d",
-            color: _color
-        });
-        // Update the coefficients
+        // When any of the coefficients change, update the meta data
         updateMeta(id, _a, _b, _c, _d);
     }, [_a, _b, _c, _d])
 
