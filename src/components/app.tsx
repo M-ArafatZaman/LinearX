@@ -171,9 +171,9 @@ const App: React.FC = () => {
             }
         });
 
-        setData(newData);
+        //setData(newData);
 
-    }, [xmax, xmin, ymax, ymin]);
+    }, [xmax, xmin, ymax, ymin, zmax, zmin]);
 
     return (
         <div className='container mx-auto'>

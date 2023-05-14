@@ -72,7 +72,7 @@ export function updateVertices(xrange: number[], yrange: number[], zrange: numbe
 }
 
 const Plane: React.FC<PlaneProps> = (props: PlaneProps) => {
-    const {color="#fff", id, a=0, b=0, c=1, d=0, update, xrange, yrange, zrange} = props;
+    const {color="#fff", id, a=0, b=0, c=1, d=0, update, xrange, yrange, zrange, updateMeta} = props;
     const [_color, setColor] = useState<string>(color);
     const [_a, setA] = useState<number>(a);
     const [_b, setB] = useState<number>(b);
@@ -101,7 +101,9 @@ const Plane: React.FC<PlaneProps> = (props: PlaneProps) => {
             z: Vertices[2],
             type: "mesh3d",
             color: _color
-        })
+        });
+        // Update the coefficients
+        updateMeta(id, _a, _b, _c, _d);
     }, [_a, _b, _c, _d])
 
     return (
