@@ -144,7 +144,8 @@ const App: React.FC = () => {
             } else {
                 return elem;
             }
-        })
+        });
+        setMetaData(newData);
     }
 
     // Whenever the x and y ranges are updated
@@ -174,7 +175,7 @@ const App: React.FC = () => {
             }
         });
 
-        //setData(newData);
+        setData(newData);
 
     }, [xmax, xmin, ymax, ymin, zmax, zmin]);
 
