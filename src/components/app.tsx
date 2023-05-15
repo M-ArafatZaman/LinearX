@@ -39,6 +39,7 @@ const App: React.FC = () => {
     });
 
     const AddVector = () => {
+        const d = new Date();
         // Add a vector to the data => scatter3d
         setData((prevData) => [...prevData, {
             x: [0,1],
@@ -51,7 +52,7 @@ const App: React.FC = () => {
         }]);
         setMetaData((prev) => [...prev, {
             id: prev[prev.length-1].id + 1,
-            info: `Vector ${prev[prev.length-1].id + 1} created by the user.`
+            info: `[${d.getUTCHours()}:${d.getUTCMinutes()}:${d.getUTCSeconds()}.${d.getUTCMilliseconds()}] Vector ${prev[prev.length-1].id + 1} created by the user.`
         }]);
     };
 
@@ -94,6 +95,8 @@ const App: React.FC = () => {
             z[z.length] = 0;
         }
 
+        const d = new Date();
+
         setData((prev) => [...prev, {
             x: x,
             y: y,
@@ -104,7 +107,7 @@ const App: React.FC = () => {
         }]);
         setMetaData((prev) => [...prev, {
             id: prev[prev.length-1].id + 1,
-            info: `Plane ${prev[prev.length-1].id + 1} created by the user`,
+            info: `[${d.getUTCHours()}:${d.getUTCMinutes()}:${d.getUTCSeconds()}.${d.getUTCMilliseconds()}] Plane ${prev[prev.length-1].id + 1} created by the user`,
             a: 0,
             b: 0,
             c: 1,
