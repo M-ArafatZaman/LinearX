@@ -238,6 +238,7 @@ const App: React.FC = () => {
                                         xrange={[xmin, xmax]}
                                         yrange={[ymin, ymax]}
                                         zrange={[zmin, zmax]}
+                                        info={metaData[i].info}
                                         update={updatePlane}
                                         updateMeta={updateMetaData}
                                     />
