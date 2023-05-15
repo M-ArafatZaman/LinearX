@@ -8,11 +8,11 @@ const VectorBorder: React.FC<BorderProps> = ({children}: BorderProps) => {
 
     return (
         <>
-        <div className="self-stretch border-l-2 border-t-2 border-b-2 border-gray-500 my-4" style={{width: 5}} />
-        <div className="p-4 flex flex-col">
+        <div className="self-stretch border-l-2 border-t-2 border-b-2 border-gray-500" style={{width: 5}} />
+        <div className="px-4 py-0 flex flex-col">
             {children}
         </div>
-        <div className="self-stretch border-r-2 border-t-2 border-b-2 border-gray-500 my-4" style={{width: 5}} />
+        <div className="self-stretch border-r-2 border-t-2 border-b-2 border-gray-500" style={{width: 5}} />
         </>
         
     )
