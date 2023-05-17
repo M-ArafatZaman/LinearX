@@ -63,94 +63,109 @@ const Vector: React.FC<VectorProps> = (props: VectorProps) => {
         <div className="relative w-full rounded-md shadow-lg my-2">
 
             <div className="flex flex-row">
+                {/* The color selector */}
                 <div className="self-stretch rounded-l-md relative group" style={{width: 10, backgroundColor: _color}}>
                     <div className="absolute invisible group-hover:visible" style={{zIndex: 1}}>
                         <SwatchesPicker color={_color} onChangeComplete={(e) => { changeColor(e.hex) }} />
                     </div>
                 </div>
 
+                {/* The data container */}
                 <div className="flex-1">
+                    {/* Log entry */}
                     <div className="px-5 py-2">
                         <code className="text-gray-800"><b>{info}</b></code>
                     </div>
 
-                    <div className="flex flex-row pb-2">
+                    {/* Grid container */}
+                    <div className="grid grid-cols-12">
+                        
+                        {/* Vector data container */}
+                        <div className="col-span-8">
 
-                        {/* V label */}
-                        <div className="p-5 flex justify-center align-middle flex-col">
-                            <p className="relative">
-                                <span className="italic" style={{zIndex: -5}}>
-                                    V<small className="absolute" style={{top: 10}}>{id}</small>
-                                </span>
-                                <span className="ml-5">=</span>
-                            </p>
+                            <div className="flex flex-row pb-2">
+
+                                {/* V label */}
+                                <div className="p-5 flex justify-center align-middle flex-col">
+                                    <p className="relative">
+                                        <span className="italic" style={{zIndex: -5}}>
+                                            V<small className="absolute" style={{top: 10}}>{id}</small>
+                                        </span>
+                                        <span className="ml-5">=</span>
+                                    </p>
+                                </div>
+
+                                {/* O - A */}
+                                {/* Point O */}
+                                <VectorBorder>
+                                    <input 
+                                        type="number"
+                                        value={x1}
+                                        onChange={(e) => { setX1(parseInt(e.target.value)) }}
+                                        className="rounded border p-1 my-1"
+                                        style={{width: 50}}
+                                    />
+                                    <input 
+                                        type="number"
+                                        value={y1}
+                                        onChange={(e) => { setY1(parseInt(e.target.value)) }}
+                                        className="rounded border p-1 my-1"
+                                        style={{width: 50}}
+                                    />
+                                    <input 
+                                        type="number"
+                                        value={z1}
+                                        onChange={(e) => { setZ1(parseInt(e.target.value)) }}
+                                        className="rounded border p-1 my-1"
+                                        style={{width: 50}}
+                                    />
+                                </VectorBorder>
+
+                                <div className="p-5 flex justify-center align-middle flex-col">
+                                    <span>-</span>
+                                </div>
+
+                                {/* Point A */}
+                                <VectorBorder>
+                                    <input 
+                                        type="number"
+                                        value={x0}
+                                        onChange={(e) => { setX0(parseInt(e.target.value)) }}
+                                        className="rounded border p-1 my-1"
+                                        style={{width: 50}}
+                                    />
+                                    <input 
+                                        type="number"
+                                        value={y0}
+                                        onChange={(e) => { setY0(parseInt(e.target.value)) }}
+                                        className="rounded border p-1 my-1"
+                                        style={{width: 50}}
+                                    />
+                                    <input 
+                                        type="number"
+                                        value={z0}
+                                        onChange={(e) => { setZ0(parseInt(e.target.value)) }}
+                                        className="rounded border p-1 my-1"
+                                        style={{width: 50}}
+                                    />
+                                </VectorBorder>
+
+                                <div className="p-5 flex justify-center align-middle flex-col">
+                                    <span>=</span>
+                                </div>
+
+                                {/* Resultant vector */}
+                                <VectorBorder>
+                                    <div className="p-1 my-1">{x1-x0}</div>
+                                    <div className="p-1 my-1">{y1-y0}</div>
+                                    <div className="p-1 my-1">{z1-z0}</div>
+                                </VectorBorder>
+                            </div>
                         </div>
 
-                        {/* O - A */}
-                        {/* Point O */}
-                        <VectorBorder>
-                            <input 
-                                type="number"
-                                value={x1}
-                                onChange={(e) => { setX1(parseInt(e.target.value)) }}
-                                className="rounded border p-1 my-1"
-                                style={{width: 50}}
-                            />
-                            <input 
-                                type="number"
-                                value={y1}
-                                onChange={(e) => { setY1(parseInt(e.target.value)) }}
-                                className="rounded border p-1 my-1"
-                                style={{width: 50}}
-                            />
-                            <input 
-                                type="number"
-                                value={z1}
-                                onChange={(e) => { setZ1(parseInt(e.target.value)) }}
-                                className="rounded border p-1 my-1"
-                                style={{width: 50}}
-                            />
-                        </VectorBorder>
-
-                        <div className="p-5 flex justify-center align-middle flex-col">
-                            <span>-</span>
+                        <div className="col-span-4">
+                            *Other operations*
                         </div>
-
-                        {/* Point A */}
-                        <VectorBorder>
-                            <input 
-                                type="number"
-                                value={x0}
-                                onChange={(e) => { setX0(parseInt(e.target.value)) }}
-                                className="rounded border p-1 my-1"
-                                style={{width: 50}}
-                            />
-                            <input 
-                                type="number"
-                                value={y0}
-                                onChange={(e) => { setY0(parseInt(e.target.value)) }}
-                                className="rounded border p-1 my-1"
-                                style={{width: 50}}
-                            />
-                            <input 
-                                type="number"
-                                value={z0}
-                                onChange={(e) => { setZ0(parseInt(e.target.value)) }}
-                                className="rounded border p-1 my-1"
-                                style={{width: 50}}
-                            />
-                        </VectorBorder>
-
-                        <div className="p-5 flex justify-center align-middle flex-col">
-                            <span>=</span>
-                        </div>
-
-                        {/* Resultant vector */}
-                        <VectorBorder>
-                            <div className="p-1 my-1">{x1-x0}</div>
-                            <div className="p-1 my-1">{y1-y0}</div>
-                            <div className="p-1 my-1">{z1-z0}</div>
-                        </VectorBorder>
                     </div>
                 </div>
             </div>
