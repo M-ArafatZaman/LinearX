@@ -38,6 +38,7 @@ const App: React.FC = () => {
         z: 1
     });
 
+    // ================== VECTOR OPERATIONS =====================
     const AddVector = () => {
         const d = new Date();
         // Add a vector to the data => scatter3d
@@ -76,7 +77,29 @@ const App: React.FC = () => {
         setYMin( Math.min(ymin, ...(d.y as number[])) );
         setZMax( Math.max(zmax, ...(d.z as number[])) );
         setZMin( Math.min(zmin, ...(d.z as number[])) );
+    };
+
+    const RemoveVec = (id: number) => {
+        // Get index
+        let i = -1;
+        let newMetaData = metaData.filter((d, ind) => {
+            if (d.id == id) {
+                i = id;
+                return false;
+            }
+            return true;
+        });
+        let newData = data.filter((_, ind) => {
+            if (ind == i) {
+                return false;
+            }
+            return true;
+        });
+        setMetaData(newMetaData);
+        setData(newData);
     }
+
+    // =============== PLANE OPERATIONS ==================
 
     const AddPlane = () => {
         // Add a plane to the data => mesh3d
@@ -229,6 +252,7 @@ const App: React.FC = () => {
                                         z={d.z}
                                         update={UpdateVector}
                                         info={metaData[i].info}
+                                        remove={RemoveVec}
                                     />
                                 } else if (d.type === "mesh3d") {
                                     return <Plane

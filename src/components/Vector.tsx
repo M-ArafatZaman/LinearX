@@ -11,10 +11,11 @@ interface VectorProps {
     z: number[] | undefined;
     update: (id: number, d: DataType) => void;
     info: string;
+    remove: (id: number) => void;
 };
 
 const Vector: React.FC<VectorProps> = (props: VectorProps) => {
-    const {x, y, z, id, color="#fff", update, info} = props;
+    const {x, y, z, id, color="#fff", update, info, remove} = props;
     const [x0, setX0] = useState<number>(0);
     const [x1, setX1] = useState<number>(0);
     const [y0, setY0] = useState<number>(0);
@@ -165,7 +166,9 @@ const Vector: React.FC<VectorProps> = (props: VectorProps) => {
 
                         {/* Other operations */}
                         <div className="col-span-4">
-                            <button className="px-5 py-2 bg-red-500 font-bold uppercase text-white rounded-md hover:bg-red-600 shadow-lg hover:shadow-2xl active:bg-red-700">Remove</button>
+                            <button className="px-5 py-2 bg-red-500 font-bold uppercase text-white rounded-md hover:bg-red-600 shadow-lg hover:shadow-2xl active:bg-red-700"
+                            onClick={() => { remove(id) }}
+                            >Remove</button>
                         </div>
                     </div>
                 </div>
