@@ -163,8 +163,9 @@ const Vector: React.FC<VectorProps> = (props: VectorProps) => {
                             </div>
                         </div>
 
+                        {/* Other operations */}
                         <div className="col-span-4">
-                            *Other operations*
+                            <button className="px-5 py-2 bg-red-500 font-bold uppercase text-white rounded-md hover:bg-red-600 shadow-lg hover:shadow-2xl active:bg-red-700">Remove</button>
                         </div>
                     </div>
                 </div>
