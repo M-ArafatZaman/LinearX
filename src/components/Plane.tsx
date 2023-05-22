@@ -15,6 +15,7 @@ interface PlaneProps {
     info: string;
     update: (id: number, d: DataType) => void;
     updateMeta: (id: number, a: number, b: number, c: number, d: number) => void;
+    remove: (id: number) => void;
 };
 
 // A function to update the vertices of the plane
@@ -59,7 +60,7 @@ export function updateVertices(xrange: number[], yrange: number[], zrange: numbe
 }
 
 const Plane: React.FC<PlaneProps> = (props: PlaneProps) => {
-    const {color="#fff", id, a=0, b=0, c=1, d=0, update, xrange, yrange, zrange, updateMeta, info} = props;
+    const {color="#fff", id, a=0, b=0, c=1, d=0, update, xrange, yrange, zrange, updateMeta, info, remove} = props;
     const [_color, setColor] = useState<string>(color);
     const [_a, setA] = useState<number>(a);
     const [_b, setB] = useState<number>(b);
@@ -180,7 +181,9 @@ const Plane: React.FC<PlaneProps> = (props: PlaneProps) => {
 
                         {/* Other operations */}
                         <div className="col-span-4">
-                            <button className="px-5 py-2 bg-red-500 font-bold uppercase text-white rounded-md hover:bg-red-600 shadow-lg hover:shadow-2xl active:bg-red-700">Remove</button>
+                            <button className="px-5 py-2 bg-red-500 font-bold uppercase text-white rounded-md hover:bg-red-600 shadow-lg hover:shadow-2xl active:bg-red-700"
+                                onClick={() => { remove(id) }}
+                                >Remove</button>
                         </div>
 
                     </div>

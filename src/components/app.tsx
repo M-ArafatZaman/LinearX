@@ -79,26 +79,6 @@ const App: React.FC = () => {
         setZMin( Math.min(zmin, ...(d.z as number[])) );
     };
 
-    const RemoveVec = (id: number) => {
-        // Get index
-        let i = -1;
-        let newMetaData = metaData.filter((d, ind) => {
-            if (d.id == id) {
-                i = id;
-                return false;
-            }
-            return true;
-        });
-        let newData = data.filter((_, ind) => {
-            if (ind == i) {
-                return false;
-            }
-            return true;
-        });
-        setMetaData(newMetaData);
-        setData(newData);
-    }
-
     // =============== PLANE OPERATIONS ==================
 
     const AddPlane = () => {
@@ -169,7 +149,27 @@ const App: React.FC = () => {
             }
         });
         setMetaData(newData);
-    }
+    };
+
+    const RemoveData = (id: number) => {
+        // Get index
+        let i = -1;
+        let newMetaData = metaData.filter((d, ind) => {
+            if (d.id == id) {
+                i = id;
+                return false;
+            }
+            return true;
+        });
+        let newData = data.filter((_, ind) => {
+            if (ind == i) {
+                return false;
+            }
+            return true;
+        });
+        setMetaData(newMetaData);
+        setData(newData);
+    };
 
     // Whenever the x and y ranges are updated
     useEffect(() => {
@@ -252,7 +252,7 @@ const App: React.FC = () => {
                                         z={d.z}
                                         update={UpdateVector}
                                         info={metaData[i].info}
-                                        remove={RemoveVec}
+                                        remove={RemoveData}
                                     />
                                 } else if (d.type === "mesh3d") {
                                     return <Plane
@@ -269,6 +269,7 @@ const App: React.FC = () => {
                                         info={metaData[i].info}
                                         update={updatePlane}
                                         updateMeta={updateMetaData}
+                                        remove={RemoveData}
                                     />
                                 }
                                 return <></>
