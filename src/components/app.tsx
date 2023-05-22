@@ -156,7 +156,7 @@ const App: React.FC = () => {
         let i = -1;
         let newMetaData = metaData.filter((d, ind) => {
             if (d.id == id) {
-                i = id;
+                i = ind;
                 return false;
             }
             return true;
