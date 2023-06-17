@@ -4,6 +4,7 @@ import useDimensions from './utilities/useDimensions';
 import getRandomColor from './utilities/randomColor';
 import Vector from './Vector';
 import Plane, {updateVertices} from './Plane';
+import Line from './Line';
 import {DataType, AppRelayoutType, MetaData} from './types';
 
 const App: React.FC = () => {
@@ -29,7 +30,8 @@ const App: React.FC = () => {
     const [metaData, setMetaData] = useState<MetaData[]>([
         {
             id: 0,
-            info: "The origin point"
+            info: "The origin point",
+            type: "ORIGIN"
         }
     ]);
     const [Eye, setEye] = useState({
@@ -37,6 +39,26 @@ const App: React.FC = () => {
         y: 1,
         z: 1
     });
+
+    // ================== LINE OPERATIONS =======================
+    const addLine = () => {
+        const d = new Date();
+        // Add a vector to the data => scatter3d
+        setData((prevData) => [...prevData, {
+            x: [0, 1],
+            y: [0, 1],
+            z: [0, 1],
+            type: "scatter3d",
+            line: {
+                color: getRandomColor()
+            }
+        }]);
+        setMetaData((prev) => [...prev, {
+            id: prev[prev.length-1].id + 1,
+            info: `[${d.getUTCHours()}:${d.getUTCMinutes()}:${d.getUTCSeconds()}.${d.getUTCMilliseconds()}] Line ${prev[prev.length-1].id + 1} created by the user.`,
+            type: "LINE"
+        }]);
+    }
 
     // ================== VECTOR OPERATIONS =====================
     const AddVector = () => {
@@ -53,7 +75,8 @@ const App: React.FC = () => {
         }]);
         setMetaData((prev) => [...prev, {
             id: prev[prev.length-1].id + 1,
-            info: `[${d.getUTCHours()}:${d.getUTCMinutes()}:${d.getUTCSeconds()}.${d.getUTCMilliseconds()}] Vector ${prev[prev.length-1].id + 1} created by the user.`
+            info: `[${d.getUTCHours()}:${d.getUTCMinutes()}:${d.getUTCSeconds()}.${d.getUTCMilliseconds()}] Vector ${prev[prev.length-1].id + 1} created by the user.`,
+            type: "VECTOR"
         }]);
     };
 
@@ -111,6 +134,7 @@ const App: React.FC = () => {
         setMetaData((prev) => [...prev, {
             id: prev[prev.length-1].id + 1,
             info: `[${d.getUTCHours()}:${d.getUTCMinutes()}:${d.getUTCSeconds()}.${d.getUTCMilliseconds()}] Plane ${prev[prev.length-1].id + 1} created by the user`,
+            type: "PLANE",
             a: 0,
             b: 0,
             c: 1,
@@ -234,7 +258,7 @@ const App: React.FC = () => {
                         
                         <div className="uppercase cursor-pointer font-bold rounded-md shadow-lg px-5 py-2 bg-blue-400 text-white transition-all hover:bg-blue-500 hover:shadow-2xl active:bg-blue-200 mb-2 text-center" onClick={AddPlane}>Add Plane</div>
 
-                        <div className="uppercase cursor-pointer font-bold rounded-md shadow-lg px-5 py-2 bg-blue-400 text-white transition-all hover:bg-blue-500 hover:shadow-2xl active:bg-blue-200 text-center" onClick={AddPlane}>Add Line</div>
+                        <div className="uppercase cursor-pointer font-bold rounded-md shadow-lg px-5 py-2 bg-blue-400 text-white transition-all hover:bg-blue-500 hover:shadow-2xl active:bg-blue-200 text-center" onClick={addLine}>Add Line</div>
                     </div>
 
                     <div className="flex-1 sm:ml-5 px-3">
@@ -244,7 +268,7 @@ const App: React.FC = () => {
 
                             data.map((d, i) => {
                                 if (i === 0 ) return <></>;
-                                if (d.type === "scatter3d") {
+                                if (metaData[i].type === "VECTOR") {
                                     return <Vector 
                                         key={i}
                                         id={metaData[i].id} 
@@ -256,7 +280,7 @@ const App: React.FC = () => {
                                         info={metaData[i].info}
                                         remove={RemoveData}
                                     />
-                                } else if (d.type === "mesh3d") {
+                                } else if (metaData[i].type === "PLANE") {
                                     return <Plane
                                         key={i}
                                         id={metaData[i].id}
@@ -271,6 +295,18 @@ const App: React.FC = () => {
                                         info={metaData[i].info}
                                         update={updatePlane}
                                         updateMeta={updateMetaData}
+                                        remove={RemoveData}
+                                    />
+                                } else if (metaData[i].type === "LINE") {
+                                    return <Line
+                                        key={i}
+                                        id={metaData[i].id}
+                                        color={d.line?.color}
+                                        x={d.x}
+                                        y={d.y}
+                                        z={d.z}
+                                        update={UpdateVector}
+                                        info={metaData[i].info}
                                         remove={RemoveData}
                                     />
                                 }

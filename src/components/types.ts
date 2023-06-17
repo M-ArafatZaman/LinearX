@@ -45,6 +45,7 @@ export interface AppRelayoutType {
 export interface MetaData {
     id: number;
     info: string;
+    type: string;
     // Type definitions for plane
     // ax + by + cz = d
     a?: number;
