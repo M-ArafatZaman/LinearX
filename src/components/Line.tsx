@@ -19,22 +19,47 @@ const Line: React.FC<LineProps> = (props: LineProps) => {
     const [_a, setA] = useState<number>(0);
     const [_b, setB] = useState<number>(0);
     const [_c, setC] = useState<number>(0);
-    const [_x, setX] = useState<number>(0);
-    const [_y, setY] = useState<number>(0);
-    const [_z, setZ] = useState<number>(0);
+    const [_x, setX] = useState<number>(1);
+    const [_y, setY] = useState<number>(1);
+    const [_z, setZ] = useState<number>(1);
     const [_color, setColor] = useState<string>(color);
 
     // Change color
     const changeColor = (val: string) => {
         setColor(val);
-    }
+    };
+
+    // Convert x, y, z to some numbers
+    useEffect(() => {
+        if (typeof x !== "undefined") {
+            setA( x[0] );
+            setX( x[1]-x[0] );
+        };
+
+        if (typeof y !== "undefined") {
+            setB( y[0] );
+            setY( y[1]-y[0] );
+        };
+
+        if (typeof z !== "undefined") {
+            setC( z[0] );
+            setZ( z[1]-z[0] );
+        };
+    }, []);
 
 
     // Whenever the values of x changes
     useEffect(() => {
         // Update the data
-        
-    }, [_a, _b, _c, x, y, z, _color]);
+        update(id, {
+            x: [_a, _a+_x],
+            y: [_b, _b+_y],
+            z: [_c, _c+_z],
+            line: {
+                color: _color
+            }
+        })
+    }, [_a, _b, _c, _x, _y, _z, _color]);
 
     return (
         <div className="relative w-full rounded-md shadow-lg my-2">
