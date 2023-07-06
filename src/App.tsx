@@ -5,9 +5,7 @@ import AppComponent from './components/app';
 function App() {
 
     return (
-        <Layout>
-            <AppComponent/>
-        </Layout>
+        <AppComponent/>
     );
 };
 

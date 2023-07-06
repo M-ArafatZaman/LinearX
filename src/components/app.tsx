@@ -227,7 +227,7 @@ const App: React.FC = () => {
     }, [xmax, xmin, ymax, ymin, zmax, zmin]);
 
     return (
-        <div className='container mx-auto'>
+        <div className='container mx-auto h-screen flex flex-col overflow-hidden'>
 
             <div className="flex w-full justify-center mt-5">
                 <Plot
@@ -251,7 +251,7 @@ const App: React.FC = () => {
             </div>
 
             <hr/>
-            <div className="p-2">
+            <div className="p-2 flex-1 overflow-scroll">
                 <div className="w-full sm:flex block">
                     <div>
                         <div className="uppercase cursor-pointer font-bold rounded-md shadow-lg px-5 py-2 bg-blue-400 text-white transition-all hover:bg-blue-500 hover:shadow-2xl active:bg-blue-200 mb-2 text-center" onClick={AddVector}>Add Vector</div>
