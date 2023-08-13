@@ -2,13 +2,12 @@ import React from 'react';
 import {DataType, MetaData} from '../types';
 import getRandomColor from '../utilities/randomColor';
 
+type SetState<T> = React.Dispatch<React.SetStateAction<T>>;
+
 // Contains all the vector operations/hooks
 
 // This hook returns a function that simply adds a vector to the data. 
-function useAddVector(
-    setData: React.Dispatch<React.SetStateAction<DataType[]>>,
-    setMetaData: React.Dispatch<React.SetStateAction<MetaData[]>>
-    ): () => void {
+function useAddVector(setData: SetState<DataType[]>, setMetaData: SetState<MetaData[]>): () => void {
     
     return () => {
         const d = new Date();
