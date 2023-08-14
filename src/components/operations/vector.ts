@@ -27,4 +27,36 @@ function useAddVector(setData: SetState<DataType[]>, setMetaData: SetState<MetaD
             type: "VECTOR"
         }]);
     }
+};
+
+// This hook returns a function to update vector data
+function useUpdateVector(
+    setData: SetState<DataType[]>,
+    setXMax: SetState<number>, setXMin: SetState<number>,
+    setYMax: SetState<number>, setYMin: SetState<number>,
+    setZMax: SetState<number>, setZMin: SetState<number>,
+    data: DataType[], metaData: MetaData[]
+): (id: number, d: DataType) => void {
+
+    return (id: number, d: DataType) => {
+        // Update a vector from the vector components
+        const newData = data.map((e, i) => {
+            if (metaData[i].id === id) {
+                return {
+                    ...e,
+                    ...d
+                }
+            } else {
+                return e;
+            }
+        });
+        setData(newData);
+        // Update the ranges just in case
+        setXMax(xmax => Math.max(xmax, ...(d.x as number[])) );
+        setXMin(xmin => Math.min(xmin, ...(d.x as number[])) );
+        setYMax(ymax => Math.max(ymax, ...(d.y as number[])) );
+        setYMin(ymin => Math.min(ymin, ...(d.y as number[])) );
+        setZMax(zmax => Math.max(zmax, ...(d.z as number[])) );
+        setZMin(zmin => Math.min(zmin, ...(d.z as number[])) );
+    }
 }
