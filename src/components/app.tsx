@@ -6,6 +6,7 @@ import Vector from './Vector';
 import Plane, {updateVertices} from './Plane';
 import Line from './Line';
 import {DataType, AppRelayoutType, MetaData} from './types';
+import {useAddVector, useUpdateVector} from './operations';
 
 const App: React.FC = () => {
 
@@ -40,67 +41,10 @@ const App: React.FC = () => {
         z: 1
     });
 
-    // ================== LINE OPERATIONS =======================
-    const addLine = () => {
-        const d = new Date();
-        // Add a vector to the data => scatter3d
-        setData((prevData) => [...prevData, {
-            x: [0, 1],
-            y: [0, 1],
-            z: [0, 1],
-            type: "scatter3d",
-            line: {
-                color: getRandomColor()
-            }
-        }]);
-        setMetaData((prev) => [...prev, {
-            id: prev[prev.length-1].id + 1,
-            info: `[${d.getUTCHours()}:${d.getUTCMinutes()}:${d.getUTCSeconds()}.${d.getUTCMilliseconds()}] Line ${prev[prev.length-1].id + 1} created by the user.`,
-            type: "LINE"
-        }]);
-    }
-
     // ================== VECTOR OPERATIONS =====================
-    const AddVector = () => {
-        const d = new Date();
-        // Add a vector to the data => scatter3d
-        setData((prevData) => [...prevData, {
-            x: [0,1],
-            y: [0,1],
-            z: [0,1],
-            type: "scatter3d",
-            line: {
-                color: getRandomColor()
-            }
-        }]);
-        setMetaData((prev) => [...prev, {
-            id: prev[prev.length-1].id + 1,
-            info: `[${d.getUTCHours()}:${d.getUTCMinutes()}:${d.getUTCSeconds()}.${d.getUTCMilliseconds()}] Vector ${prev[prev.length-1].id + 1} created by the user.`,
-            type: "VECTOR"
-        }]);
-    };
+    const AddVector = useAddVector(setData, setMetaData);
 
-    const UpdateVector = (id: number, d: DataType) => {
-        // Update a vector from the vector components
-        const newData = data.map((e, i) => {
-            if (metaData[i].id === id) {
-                return {
-                    ...e,
-                    ...d
-                }
-            } else {
-                return e;
-            }
-        });
-        setData(newData);
-        // Update the ranges just in case
-        setXMax( Math.max(xmax, ...(d.x as number[])) );
-        setXMin( Math.min(xmin, ...(d.x as number[])) );
-        setYMax( Math.max(ymax, ...(d.y as number[])) );
-        setYMin( Math.min(ymin, ...(d.y as number[])) );
-        setZMax( Math.max(zmax, ...(d.z as number[])) );
-        setZMin( Math.min(zmin, ...(d.z as number[])) );
-    };
+    const UpdateVector = useUpdateVector(setData, setXMax, setXMin, setYMax, setYMin, setZMax, setZMin, data, metaData);
 
     // =============== PLANE OPERATIONS ==================
 
@@ -258,7 +202,7 @@ const App: React.FC = () => {
                         
                         <div className="uppercase cursor-pointer font-bold rounded-md shadow-lg px-5 py-2 bg-blue-400 text-white transition-all hover:bg-blue-500 hover:shadow-2xl active:bg-blue-200 mb-2 text-center" onClick={AddPlane}>Add Plane</div>
 
-                        <div className="uppercase cursor-pointer font-bold rounded-md shadow-lg px-5 py-2 bg-blue-400 text-white transition-all hover:bg-blue-500 hover:shadow-2xl active:bg-blue-200 text-center" onClick={addLine}>Add Line</div>
+                        <div className="uppercase cursor-pointer font-bold rounded-md shadow-lg px-5 py-2 bg-blue-400 text-white transition-all hover:bg-blue-500 hover:shadow-2xl active:bg-blue-200 text-center" onClick={AddVector}>Add Line</div>
                     </div>
 
                     <div className="flex-1 sm:ml-5 px-3">

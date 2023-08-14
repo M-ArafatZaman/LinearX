@@ -7,7 +7,7 @@ type SetState<T> = React.Dispatch<React.SetStateAction<T>>;
 // Contains all the vector operations/hooks
 
 // This hook returns a function that simply adds a vector to the data. 
-function useAddVector(setData: SetState<DataType[]>, setMetaData: SetState<MetaData[]>): () => void {
+export function useAddVector(setData: SetState<DataType[]>, setMetaData: SetState<MetaData[]>): () => void {
     
     return () => {
         const d = new Date();
@@ -30,7 +30,7 @@ function useAddVector(setData: SetState<DataType[]>, setMetaData: SetState<MetaD
 };
 
 // This hook returns a function to update vector data
-function useUpdateVector(
+export function useUpdateVector(
     setData: SetState<DataType[]>,
     setXMax: SetState<number>, setXMin: SetState<number>,
     setYMax: SetState<number>, setYMin: SetState<number>,
