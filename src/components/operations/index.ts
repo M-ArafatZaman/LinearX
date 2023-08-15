@@ -4,5 +4,6 @@ import {useAddPlane, useUpdatePlane} from './plane';
 export {
     useAddVector,
     useUpdateVector,
-    useAddPlane
+    useAddPlane,
+    useUpdatePlane
 };
