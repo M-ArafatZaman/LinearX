@@ -6,7 +6,7 @@ import Vector from './Vector';
 import Plane, {updateVertices} from './Plane';
 import Line from './Line';
 import {DataType, AppRelayoutType, MetaData} from './types';
-import {useAddVector, useUpdateVector} from './operations';
+import {useAddVector, useUpdateVector, useAddPlane} from './operations';
 
 const App: React.FC = () => {
 
@@ -48,43 +48,7 @@ const App: React.FC = () => {
 
     // =============== PLANE OPERATIONS ==================
 
-    const AddPlane = () => {
-        // Add a plane to the data => mesh3d
-        let x: number[] = [];
-        let y: number[] = [];
-        let z: number[] = [];
-
-        // If the formula is ax + by + cz = d
-        // We get z by => (d-ax-by)/c
-        // The initial formula is z = 0 
-        let tmp = [[xmax, ymax], [xmax, ymin], [xmin, ymax], [xmin, ymin]]; 
-        
-        for (let i = 0; i < tmp.length; i++) {
-            x[x.length] = tmp[i][0];
-            y[y.length] = tmp[i][1];
-            z[z.length] = 0;
-        }
-
-        const d = new Date();
-
-        setData((prev) => [...prev, {
-            x: x,
-            y: y,
-            z: z,
-            type: "mesh3d",
-            opacity: 0.7,
-            color: getRandomColor()
-        }]);
-        setMetaData((prev) => [...prev, {
-            id: prev[prev.length-1].id + 1,
-            info: `[${d.getUTCHours()}:${d.getUTCMinutes()}:${d.getUTCSeconds()}.${d.getUTCMilliseconds()}] Plane ${prev[prev.length-1].id + 1} created by the user`,
-            type: "PLANE",
-            a: 0,
-            b: 0,
-            c: 1,
-            d: 0
-        }])
-    };
+    const AddPlane = useAddPlane(setData, setMetaData, xmin, xmax, ymin, ymax);
 
     const updatePlane = (id: number, d: DataType) => {
         // Updates the plane
