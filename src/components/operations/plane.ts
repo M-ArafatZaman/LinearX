@@ -69,3 +69,25 @@ export function useUpdatePlane(
     
     }
 };
+
+// A simple hook to get a function that updates the coeffcients of the plane equations
+export function useUpdatePlaneCoeff(
+    setMetaData: SetState<MetaData[]>
+): (id: number, a: number, b: number, c: number, d: number) => void {
+    return (id: number, a: number, b: number, c: number, d: number) => {
+        // Updates the meta data
+        setMetaData(metaData => metaData.map((elem) => {
+            if (elem.id === id) {
+                return {
+                    ...elem,
+                    a: a,
+                    b: b,
+                    c: c,
+                    d: d
+                }
+            } else {
+                return elem;
+            }
+        }));
+    }
+}

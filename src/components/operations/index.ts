@@ -1,9 +1,10 @@
 import {useAddVector, useUpdateVector} from './vector';
-import {useAddPlane, useUpdatePlane} from './plane';
+import {useAddPlane, useUpdatePlane, useUpdatePlaneCoeff} from './plane';
 
 export {
     useAddVector,
     useUpdateVector,
     useAddPlane,
-    useUpdatePlane
+    useUpdatePlane,
+    useUpdatePlaneCoeff
 };
