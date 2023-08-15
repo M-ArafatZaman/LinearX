@@ -47,4 +47,25 @@ export function useAddPlane(
             d: 0
         }])
     }
-}
+};
+
+// A simple hook to get a function that updates the plane
+export function useUpdatePlane(
+    setData: SetState<DataType[]>
+): (id: number, d: DataType) => void {
+
+    return (id: number, d: DataType) => {
+        // Updates the plane
+        setData((data) => data.map((e, i) => {
+            if (id === i) {
+                return {
+                    ...e,
+                    ...d
+                }
+            } else {
+                return e;
+            }
+        }));
+    
+    }
+};

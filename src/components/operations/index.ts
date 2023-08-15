@@ -1,5 +1,5 @@
 import {useAddVector, useUpdateVector} from './vector';
-import {useAddPlane} from './plane';
+import {useAddPlane, useUpdatePlane} from './plane';
 
 export {
     useAddVector,
