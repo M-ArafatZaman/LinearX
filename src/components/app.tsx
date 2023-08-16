@@ -60,11 +60,13 @@ const App: React.FC = () => {
     useEffect(() => {
         const newData = data.map((e, i) => {
             if (e.type === "mesh3d") {
+                // Get the constants
                 const a = metaData[i].a as number;
                 const b = metaData[i].b as number;
                 const c = metaData[i].c as number;
                 const d = metaData[i].d as number;
 
+                // Get the new vertices
                 const newVertices = updateVertices(
                     [xmin, xmax],
                     [ymin, ymax],
