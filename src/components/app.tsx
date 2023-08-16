@@ -6,7 +6,7 @@ import Vector from './Vector';
 import Plane, {updateVertices} from './Plane';
 import Line from './Line';
 import {DataType, AppRelayoutType, MetaData} from './types';
-import {useAddVector, useUpdateVector, useAddPlane, useUpdatePlane, useUpdatePlaneCoeff} from './operations';
+import {useAddVector, useUpdateVector, useAddPlane, useUpdatePlane, useUpdatePlaneCoeff, useRemoveData} from './operations';
 
 const App: React.FC = () => {
 
@@ -54,25 +54,7 @@ const App: React.FC = () => {
 
     const UpdatePlaneCoeff = useUpdatePlaneCoeff(setMetaData);
 
-    const RemoveData = (id: number) => {
-        // Get index
-        let i = -1;
-        let newMetaData = metaData.filter((d, ind) => {
-            if (d.id == id) {
-                i = ind;
-                return false;
-            }
-            return true;
-        });
-        let newData = data.filter((_, ind) => {
-            if (ind == i) {
-                return false;
-            }
-            return true;
-        });
-        setMetaData(newMetaData);
-        setData(newData);
-    };
+    const RemoveData = useRemoveData(setData, setMetaData);
 
     // Whenever the x and y ranges are updated
     useEffect(() => {
