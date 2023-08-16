@@ -6,7 +6,7 @@ import Vector from './Vector';
 import Plane, {updateVertices} from './Plane';
 import Line from './Line';
 import {DataType, AppRelayoutType, MetaData} from './types';
-import {useAddVector, useUpdateVector, useAddPlane, useUpdatePlane} from './operations';
+import {useAddVector, useUpdateVector, useAddPlane, useUpdatePlane, useUpdatePlaneCoeff} from './operations';
 
 const App: React.FC = () => {
 
@@ -52,23 +52,7 @@ const App: React.FC = () => {
 
     const UpdatePlane = useUpdatePlane(setData);
 
-    const updateMetaData = (id: number, a: number, b: number, c: number, d: number) => {
-        // Updates the meta data
-        const newData = metaData.map((elem) => {
-            if (elem.id === id) {
-                return {
-                    ...elem,
-                    a: a,
-                    b: b,
-                    c: c,
-                    d: d
-                }
-            } else {
-                return elem;
-            }
-        });
-        setMetaData(newData);
-    };
+    const UpdatePlaneCoeff = useUpdatePlaneCoeff(setMetaData);
 
     const RemoveData = (id: number) => {
         // Get index
@@ -189,7 +173,7 @@ const App: React.FC = () => {
                                         zrange={[zmin, zmax]}
                                         info={metaData[i].info}
                                         update={UpdatePlane}
-                                        updateMeta={updateMetaData}
+                                        updateMeta={UpdatePlaneCoeff}
                                         remove={RemoveData}
                                     />
                                 } else if (metaData[i].type === "LINE") {
