@@ -1,11 +1,13 @@
+import React from 'react';
 import { useState } from 'react';
-import Layout from './Layout';
 import AppComponent from './components/app';
+import router from './routes';
+import {RouterProvider} from 'react-router-dom';
 
 function App() {
 
     return (
-        <AppComponent/>
+        <RouterProvider router={router} />
     );
 };
 
