@@ -4,7 +4,12 @@ import Layout from '../Layout';
 const Home: React.FC = () => {
     return (
         <Layout>
-            Test
+            <div className="container mx-auto">
+                <div className="grid sm:grid-cols-1 md:grid-cols-2">
+                    <div>Test1</div>
+                    <div>Test2</div>
+                </div>
+            </div>
         </Layout>
     )
 };
