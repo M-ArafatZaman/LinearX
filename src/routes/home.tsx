@@ -1,9 +1,19 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Layout from '../Layout';
 import LinearGPT_Showcase from '../assets/lineargpt_showcase.png';
 import plotPNG from '../assets/plot.png';
 
 const Home: React.FC = () => {
+    const [tab, setTab] = useState<string>("login");
+
+    const setLogin = () => {
+        setTab("login");
+    };
+
+    const setSignup = () => {
+        setTab("signup");
+    }
+    
     return (
         <Layout>
             <div className="container mx-auto flex-1">
@@ -18,8 +28,10 @@ const Home: React.FC = () => {
                         <div className="w-3/4">
                             {/* Login and sign up buttons / TABS */}
                             <div className="flex flex-row">
-                                <a className="uppercase cursor-pointer font-bold rounded-md shadow-lg px-3 py-2 bg-blue-400 text-white transition-all hover:bg-blue-500 hover:shadow-2xl active:bg-blue-200 mb-2 text-center flex-1 mr-1">Login</a>
-                                <a className="uppercase cursor-pointer font-bold rounded-md shadow-lg px-3 py-2 bg-blue-400 text-white transition-all hover:bg-blue-500 hover:shadow-2xl active:bg-blue-200 mb-2 text-center flex-1 ml-1">SIGN UP</a>
+                                {/* Login button */}
+                                <a data-tab={tab} className="uppercase cursor-pointer font-bold rounded-md shadow-lg px-3 py-2 data-[tab=login]:bg-blue-400 data-[tab=login]:text-white transition-all data-[tab=login]:hover:bg-blue-500 hover:shadow-2xl data-[tab=login]:active:bg-blue-200 mb-2 text-center flex-1 mx-1" onClick={setLogin}>Login</a>
+                                {/* Sign up button */}
+                                <a data-tab={tab} className="uppercase cursor-pointer font-bold rounded-md shadow-lg px-3 py-2 data-[tab=signup]:bg-blue-400 data-[tab=signup]:text-white transition-all data-[tab=signup]:hover:bg-blue-500 hover:shadow-2xl data-[tab=signup]:active:bg-blue-200 mb-2 text-center flex-1 mx-1" onClick={setSignup}>Sign up</a>
                             </div>
                         </div>
                         
