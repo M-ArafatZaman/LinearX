@@ -10,7 +10,7 @@ const Home: React.FC = () => {
                 <div className="grid sm:grid-cols-1 md:grid-cols-2">
                     {/* Image */}
                     <div className="p-3 flex justify-center align-middle">
-                        <img src={plotPNG} style={{objectFit: "contain", width: "75%"}} />
+                        <img src={plotPNG} style={{objectFit: "contain"}} />
                     </div>
 
                     {/* Login */}
