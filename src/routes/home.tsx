@@ -14,8 +14,15 @@ const Home: React.FC = () => {
                     </div>
 
                     {/* Login */}
-                    <div className="p-3 flex justify-center align-middle">
-                        Login/Register
+                    <div className="p-3 flex justify-center items-center">
+                        <div className="w-3/4">
+                            {/* Login and sign up buttons / TABS */}
+                            <div className="flex flex-row">
+                                <a className="uppercase cursor-pointer font-bold rounded-md shadow-lg px-3 py-2 bg-blue-400 text-white transition-all hover:bg-blue-500 hover:shadow-2xl active:bg-blue-200 mb-2 text-center flex-1 mr-1">Login</a>
+                                <a className="uppercase cursor-pointer font-bold rounded-md shadow-lg px-3 py-2 bg-blue-400 text-white transition-all hover:bg-blue-500 hover:shadow-2xl active:bg-blue-200 mb-2 text-center flex-1 ml-1">SIGN UP</a>
+                            </div>
+                        </div>
+                        
                     </div>
                 </div>
             </div>
