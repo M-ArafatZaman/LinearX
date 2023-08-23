@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Layout from '../Layout';
-import LinearGPT_Showcase from '../assets/lineargpt_showcase.png';
 import plotPNG from '../assets/plot.png';
+
 
 const Home: React.FC = () => {
     const [tab, setTab] = useState<string>("login");
@@ -12,7 +12,25 @@ const Home: React.FC = () => {
 
     const setSignup = () => {
         setTab("signup");
-    }
+    };
+
+    useEffect(() => {
+        const googleSignInButton = document.getElementById("google-sign-in-button");
+        // @ts-ignore
+        if (googleSignInButton !== null && typeof google !== "undefined") {
+            // @ts-ignore
+            google.accounts.id.initialize({
+                client_id: "626851283273-hgd1l8f503r8dqvu5hde5mmhe3iamjbo.apps.googleusercontent.com",
+                callback: (resp: any) => {console.log(resp)}
+            });
+            // @ts-ignore
+            google.accounts.id.renderButton(
+                googleSignInButton,
+                { theme: "outline", size: "large", text: "continue_with", type: "standard" }  // customization attributes
+            );
+        }
+
+    }, [])
     
     return (
         <Layout>
@@ -73,23 +91,7 @@ const Home: React.FC = () => {
                                 </div>
                                 {/* Google sign in button */}
                                 <div>
-                                <div id="g_id_onload"
-                                    data-client_id="626851283273-hgd1l8f503r8dqvu5hde5mmhe3iamjbo.apps.googleusercontent.com"
-                                    data-context="signin"
-                                    data-ux_mode="popup"
-                                    data-login_uri="http://localhost:5173/app"
-                                    data-nonce=""
-                                    data-auto_prompt="false">
-                                </div>
-
-                                <div className="g_id_signin"
-                                    data-type="standard"
-                                    data-shape="rectangular"
-                                    data-theme="outline"
-                                    data-text="continue_with"
-                                    data-size="large"
-                                    data-logo_alignment="left">
-                                </div>
+                                    <div id="google-sign-in-button"></div>
                                 </div>
                             </div>
                         </div>
