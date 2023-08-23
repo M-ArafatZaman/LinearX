@@ -35,7 +35,7 @@ const Home: React.FC = () => {
                             </div>
 
                             {/* Form */}
-                            <div className="my-2 mx-2 px-3 py-2 rounded-md shadow-md">
+                            <div className="my-2 mx-2 px-3 py-2 rounded-md shadow-md bg-slate-50">
                                 {/* Login form */}
                                 <form className="block">
                                     {/* Username */}
@@ -64,8 +64,33 @@ const Home: React.FC = () => {
                                     </div>
                                     {/* Login submit button */}
                                     <button type="button" className="uppercase cursor-pointer font-bold rounded-md shadow-lg px-3 py-2 bg-green-600 text-white transition-all hover:bg-green-700 hover:shadow-2xl active:bg-green-200 text-center w-full my-2" >Login</button>
-
                                 </form>
+                                {/* Or use google signup button */}
+                                <div className="text-sm text-gray-500 my-1 flex flex-row items-center">
+                                    <hr className="flex-1" />
+                                    <span className="mx-2 inline-block">or</span>
+                                    <hr className="flex-1" />
+                                </div>
+                                {/* Google sign in button */}
+                                <div>
+                                <div id="g_id_onload"
+                                    data-client_id="626851283273-hgd1l8f503r8dqvu5hde5mmhe3iamjbo.apps.googleusercontent.com"
+                                    data-context="signin"
+                                    data-ux_mode="popup"
+                                    data-login_uri="http://localhost:5173/app"
+                                    data-nonce=""
+                                    data-auto_prompt="false">
+                                </div>
+
+                                <div className="g_id_signin"
+                                    data-type="standard"
+                                    data-shape="rectangular"
+                                    data-theme="outline"
+                                    data-text="continue_with"
+                                    data-size="large"
+                                    data-logo_alignment="left">
+                                </div>
+                                </div>
                             </div>
                         </div>
                         
