@@ -26,7 +26,14 @@ const Home: React.FC = () => {
             // @ts-ignore
             google.accounts.id.renderButton(
                 googleSignInButton,
-                { theme: "outline", size: "large", text: "continue_with", type: "standard" }  // customization attributes
+                {
+                    theme: "outline",
+                    size: "large",
+                    text: "continue_with",
+                    type: "standard",
+                    width: "400",
+                    logo_alignment: "center"
+                }
             );
         }
 
