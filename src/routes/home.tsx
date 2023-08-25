@@ -1,10 +1,11 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import Layout from '../Layout';
 import plotPNG from '../assets/plot.png';
-
+import {useTransition, useSpringRef, animated} from '@react-spring/web';
 
 const Home: React.FC = () => {
     const [tab, setTab] = useState<string>("login");
+    const [LoginFormHeight, setLoginFormHeight] = useState<number>(0);
 
     const setLogin = () => {
         setTab("login");
@@ -14,6 +15,7 @@ const Home: React.FC = () => {
         setTab("signup");
     };
 
+    // Load google sign in button
     useEffect(() => {
         const googleSignInButton = document.getElementById("google-sign-in-button");
         // @ts-ignore
@@ -37,7 +39,25 @@ const Home: React.FC = () => {
             );
         }
 
-    }, [])
+    }, []);
+
+    const LoginRef = useRef<HTMLFormElement>(null);
+    const transRef = useSpringRef();
+    const transitions = useTransition(tab, {
+        ref: transRef,
+        keys: null,
+        from: { opacity: 0, transform: 'translate3d(100%,0,0)' },
+        enter: { opacity: 1, transform: 'translate3d(0%,0,0)' },
+        leave: { opacity: 0, transform: 'translate3d(-50%,0,0)' }, 
+    });
+
+    useEffect(() => {
+        transRef.start();
+    }, [tab]);
+
+    useEffect(() => {
+        setLoginFormHeight(typeof LoginRef.current?.clientHeight == "number" ? LoginRef.current.clientHeight : 0);
+    }, [LoginRef]);
     
     return (
         <Layout>
@@ -62,44 +82,50 @@ const Home: React.FC = () => {
                             {/* Form */}
                             <div className="my-2 mx-2 px-3 py-2 rounded-md shadow-md bg-slate-50">
                                 {/* Login form */}
-                                <form className="block">
-                                    {/* Username */}
-                                    <div className="w-full">
-                                        <div className="my-1 relative rounded-md shadow-md">
-                                            <input
-                                            type="text"
-                                            id="username"
-                                            name="username"
-                                            className="focus:border-none block w-full border-gray-300 rounded-md border-none px-3 py-2"
-                                            placeholder="Username or Email"
-                                            />
-                                        </div>
-                                    </div>
-                                    {/* Password */}
-                                    <div className="w-full">
-                                        <div className="my-1 relative rounded-md shadow-md">
-                                            <input
-                                            type="password"
-                                            id="password"
-                                            name="password"
-                                            className="focus:border-none block w-full border-gray-300 rounded-md border-none px-3 py-2"
-                                            placeholder="Password"
-                                            />
-                                        </div>
-                                    </div>
-                                    {/* Login submit button */}
-                                    <button type="button" className="uppercase cursor-pointer font-bold rounded-md shadow-lg px-3 py-2 bg-green-600 text-white transition-all hover:bg-green-700 hover:shadow-2xl active:bg-green-200 text-center w-full my-2" >Login</button>
-                                </form>
-                                {/* Or use google signup button */}
-                                <div className="text-sm text-gray-500 my-1 flex flex-row items-center">
-                                    <hr className="flex-1" />
-                                    <span className="mx-2 inline-block">or</span>
-                                    <hr className="flex-1" />
-                                </div>
-                                {/* Google sign in button */}
-                                <div>
-                                    <div id="google-sign-in-button"></div>
-                                </div>
+                                {transitions((style, i) => {
+                                    return (
+                                        <animated.div style={{...style}}>
+                                            <form className="block" id="login-form" ref={LoginRef}>
+                                                {/* Username */}
+                                                <div className="w-full">
+                                                    <div className="my-1 relative rounded-md shadow-md">
+                                                        <input
+                                                        type="text"
+                                                        id="username"
+                                                        name="username"
+                                                        className="focus:border-none block w-full border-gray-300 rounded-md border-none px-3 py-2"
+                                                        placeholder="Username or Email"
+                                                        />
+                                                    </div>
+                                                </div>
+                                                {/* Password */}
+                                                <div className="w-full">
+                                                    <div className="my-1 relative rounded-md shadow-md">
+                                                        <input
+                                                        type="password"
+                                                        id="password"
+                                                        name="password"
+                                                        className="focus:border-none block w-full border-gray-300 rounded-md border-none px-3 py-2"
+                                                        placeholder="Password"
+                                                        />
+                                                    </div>
+                                                </div>
+                                                {/* Login submit button */}
+                                                <button type="button" className="uppercase cursor-pointer font-bold rounded-md shadow-lg px-3 py-2 bg-green-600 text-white transition-all hover:bg-green-700 hover:shadow-2xl active:bg-green-200 text-center w-full my-2" >Login</button>
+                                            </form>
+                                            {/* Or use google signup button */}
+                                            <div className="text-sm text-gray-500 my-1 flex flex-row items-center">
+                                                <hr className="flex-1" />
+                                                <span className="mx-2 inline-block">or</span>
+                                                <hr className="flex-1" />
+                                            </div>
+                                            {/* Google sign in button */}
+                                            <div>
+                                                <div id="google-sign-in-button"></div>
+                                            </div>
+                                        </animated.div>
+                                    )
+                                })}
                             </div>
                         </div>
                         

@@ -12,6 +12,7 @@
   "dependencies": {
     "@headlessui/react": "^1.7.14",
     "@heroicons/react": "^2.0.17",
+    "@react-spring/web": "^9.7.3",
     "@types/react-color": "^3.0.6",
     "plotly.js": "^2.22.0",
     "react": "^18.2.0",
