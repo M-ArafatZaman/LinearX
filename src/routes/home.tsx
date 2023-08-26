@@ -3,6 +3,7 @@ import Layout from '../Layout';
 import plotPNG from '../assets/plot.png';
 import {useTransition, useSpringRef, animated} from '@react-spring/web';
 import LoginForm from './home/LoginForm';
+import SignupForm from './home/SignupForm';
 
 const Home: React.FC = () => {
     const [tab, setTab] = useState<string>("login");
@@ -39,7 +40,7 @@ const Home: React.FC = () => {
                     </div>
 
                     {/* Login */}
-                    <div className="p-3 flex justify-center items-center">
+                    <div className="p-3 flex justify-center">
                         <div className="w-3/4">
                             {/* Login and sign up buttons / TABS */}
                             <div className="flex flex-row">
@@ -53,11 +54,19 @@ const Home: React.FC = () => {
                             <div className="my-2 mx-2 px-3 py-2 rounded-md shadow-md bg-slate-50">
                                 {/* Login form */}
                                 {transitions((style, i) => {
-                                    return (
-                                        <animated.div style={{...style}}>
-                                            <LoginForm/>
-                                        </animated.div>
-                                    )
+                                    if (i == "login") {
+                                        return (
+                                            <animated.div style={{...style}}>
+                                                <LoginForm/>
+                                            </animated.div>
+                                        )
+                                    } else if (i == "signup") {
+                                        return (
+                                            <animated.div style={{...style}}>
+                                                <SignupForm />
+                                            </animated.div>
+                                        )
+                                    }
                                 })}
                             </div>
                         </div>
