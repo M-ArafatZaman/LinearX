@@ -16,17 +16,29 @@ const Home: React.FC = () => {
         setTab("signup");
     };
 
-    const transRef = useSpringRef();
-    const transitions = useTransition(tab, {
-        ref: transRef,
+    // Login form animations
+    const loginTransRef = useSpringRef();
+    const loginTransitions = useTransition(tab, {
+        ref: loginTransRef,
         keys: null,
-        from: { opacity: 0, transform: 'translate3d(100%,0,0)' },
+        from: { opacity: 0, transform: 'translate3d(-100%,0,0)' },
         enter: { opacity: 1, transform: 'translate3d(0%,0,0)' },
         leave: { opacity: 0, transform: 'translate3d(-50%,0,0)' }, 
     });
 
+    // Signup form animations
+    const signupTransRef = useSpringRef();
+    const signupTransitions = useTransition(tab, {
+        ref: signupTransRef,
+        keys: null,
+        from: { opacity: 0, transform: 'translate3d(100%,0,0)' },
+        enter: { opacity: 1, transform: 'translate3d(0%,0,0)' },
+        leave: { opacity: 0, transform: 'translate3d(50%,0,0)' }, 
+    })
+
     useEffect(() => {
-        transRef.start();
+        loginTransRef.start();
+        signupTransRef.start();
     }, [tab]);
 
     
@@ -53,14 +65,18 @@ const Home: React.FC = () => {
                             {/* Form */}
                             <div className="my-2 mx-2 px-3 py-2 rounded-md shadow-md bg-slate-50">
                                 {/* Login form */}
-                                {transitions((style, i) => {
+                                {loginTransitions((style, i) => {
                                     if (i == "login") {
                                         return (
                                             <animated.div style={{...style}}>
                                                 <LoginForm/>
                                             </animated.div>
                                         )
-                                    } else if (i == "signup") {
+                                    }
+                                })}
+                                {/* Signup form */}
+                                {signupTransitions((style, i) => {
+                                    if (i == "signup") {
                                         return (
                                             <animated.div style={{...style}}>
                                                 <SignupForm />
