@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useRef} from 'react';
 import Layout from '../Layout';
 import plotPNG from '../assets/plot.png';
-import {useTransition, useSpringRef, animated} from '@react-spring/web';
+import {useTransition, useSpringRef, animated, useSpring} from '@react-spring/web';
 import LoginForm from './home/LoginForm';
 import SignupForm from './home/SignupForm';
 
@@ -38,14 +38,28 @@ const Home: React.FC = () => {
     });
     const signupRef = useRef<HTMLDivElement>() as React.RefObject<HTMLDivElement> | undefined | null;
 
+    // Form container animations
+    const [containerHeight, setContainerHeight] = useState<number>(16);
+    const [containerSpringStyles, containerAPI] = useSpring(() => ({
+        to: {
+            height: containerHeight+16
+        }
+    }), [containerHeight]);
+
     useEffect(() => {
         loginTransRef.start();
         signupTransRef.start();
-        if (tab == "login") {
-            console.log(loginRef?.current?.clientHeight);
+        if (tab == "login" && loginRef?.current) {
+            setContainerHeight(loginRef.current.clientHeight);
+        } else if (tab == "signup" && signupRef?.current) {
+            setContainerHeight(signupRef.current.clientHeight);
         }
     }, [tab]);
 
+    // Whenever the container height is changed
+    useEffect(() => {
+        containerAPI.start();
+    }, [containerHeight]);
     
     return (
         <Layout>
@@ -68,7 +82,7 @@ const Home: React.FC = () => {
                             </div>
 
                             {/* Form */}
-                            <div className="my-2 mx-2 px-3 py-2 rounded-md shadow-md bg-slate-50 relative">
+                            <animated.div className="my-2 mx-2 px-3 py-2 rounded-md shadow-md bg-slate-50 relative" style={containerSpringStyles}>
                                 {/* Login form */}
                                 {loginTransitions((style, i) => {
                                     if (i == "login") {
@@ -89,7 +103,7 @@ const Home: React.FC = () => {
                                         )
                                     }
                                 })}
-                            </div>
+                            </animated.div>
                         </div>
                         
                     </div>
