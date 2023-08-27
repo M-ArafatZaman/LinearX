@@ -1,7 +1,6 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, forwardRef} from 'react';
 
-
-const LoginForm: React.FC = () => {
+const LoginForm = forwardRef<HTMLDivElement>((props, ref: React.ForwardedRef<HTMLDivElement>) => {
 
     // Load google sign in button
     useEffect(() => {
@@ -31,7 +30,7 @@ const LoginForm: React.FC = () => {
     
 
     return (
-        <div>
+        <div className="absolute w-full" ref={ref}>
             <form className="block" id="login-form">
                 {/* Username */}
                 <div className="w-full">
@@ -72,6 +71,6 @@ const LoginForm: React.FC = () => {
             </div>
         </div>
     )
-};
+});
 
 export default LoginForm;

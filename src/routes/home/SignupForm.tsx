@@ -1,12 +1,12 @@
-import React, {useState} from 'react';
+import React, {useState, forwardRef} from 'react';
 
-const SignupForm: React.FC = () => {
+const SignupForm = forwardRef<HTMLDivElement>((props, ref: React.ForwardedRef<HTMLDivElement>) => {
 
     return (
-        <div>
+        <div className="absolute w-full" ref={ref}>
             Signup form
         </div>
     )
-};
+});
 
 export default SignupForm;

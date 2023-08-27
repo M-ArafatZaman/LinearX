@@ -25,6 +25,7 @@ const Home: React.FC = () => {
         enter: { opacity: 1, transform: 'translate3d(0%,0,0)' },
         leave: { opacity: 0, transform: 'translate3d(-50%,0,0)' }, 
     });
+    const loginRef = useRef<HTMLDivElement>() as React.RefObject<HTMLDivElement> | undefined | null;
 
     // Signup form animations
     const signupTransRef = useSpringRef();
@@ -34,11 +35,15 @@ const Home: React.FC = () => {
         from: { opacity: 0, transform: 'translate3d(100%,0,0)' },
         enter: { opacity: 1, transform: 'translate3d(0%,0,0)' },
         leave: { opacity: 0, transform: 'translate3d(50%,0,0)' }, 
-    })
+    });
+    const signupRef = useRef<HTMLDivElement>() as React.RefObject<HTMLDivElement> | undefined | null;
 
     useEffect(() => {
         loginTransRef.start();
         signupTransRef.start();
+        if (tab == "login") {
+            console.log(loginRef?.current?.clientHeight);
+        }
     }, [tab]);
 
     
@@ -63,13 +68,13 @@ const Home: React.FC = () => {
                             </div>
 
                             {/* Form */}
-                            <div className="my-2 mx-2 px-3 py-2 rounded-md shadow-md bg-slate-50">
+                            <div className="my-2 mx-2 px-3 py-2 rounded-md shadow-md bg-slate-50 relative">
                                 {/* Login form */}
                                 {loginTransitions((style, i) => {
                                     if (i == "login") {
                                         return (
                                             <animated.div style={{...style}}>
-                                                <LoginForm/>
+                                                <LoginForm ref={loginRef} />
                                             </animated.div>
                                         )
                                     }
@@ -79,7 +84,7 @@ const Home: React.FC = () => {
                                     if (i == "signup") {
                                         return (
                                             <animated.div style={{...style}}>
-                                                <SignupForm />
+                                                <SignupForm ref={signupRef} />
                                             </animated.div>
                                         )
                                     }
