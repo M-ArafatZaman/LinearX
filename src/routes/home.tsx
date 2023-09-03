@@ -66,8 +66,10 @@ const Home: React.FC = () => {
             <div className="container mx-auto flex-1">
                 <div className="grid sm:grid-cols-1 md:grid-cols-2">
                     {/* Image */}
-                    <div className="p-3 flex justify-center align-middle">
-                        <img src={plotPNG} style={{objectFit: "contain"}} />
+                    <div className="p-3 flex justify-center align-middle">\
+                        <div>
+                            <img src={plotPNG} style={{objectFit: "contain"}} />
+                        </div>
                     </div>
 
                     {/* Login */}
